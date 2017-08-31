@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import utils.FxmlUtils;
 
 /**
  *
@@ -44,7 +45,7 @@ public class MainController implements Initializable {
     }    
     
     public void ScreanLoadAndSet (String fxml) {
-    	
+ /*   	
     	 FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
          ResourceBundle bundle = ResourceBundle.getBundle("bundles.messages");
          loader.setResources(bundle);
@@ -54,8 +55,8 @@ public class MainController implements Initializable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-         OptionsScrean.setCenter(root);
+		}*/
+         OptionsScrean.setCenter(FxmlUtils.fxmlLoader(fxml));
     }
     
 }

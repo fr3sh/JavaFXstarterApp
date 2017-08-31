@@ -7,7 +7,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import utils.FxmlUtils;
 
 /**
  *
@@ -15,20 +17,24 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     
-    @Override
+    private static final String MainFxml = "/fxml/FxmlMain.fxml";
+
+	@Override
     public void start(Stage stage) throws Exception {
     	//Locale.setDefault(new Locale("en"));
     	// Parent root = FXMLLoader.load(getClass().getResource("/fxml/FxmlMain.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FxmlMain.fxml"));
-        
-        
+  
+/*		FXMLLoader loader = new FXMLLoader(getClass().getResource(MainFxml));
         ResourceBundle bundle = ResourceBundle.getBundle("bundles.messages");
         loader.setResources(bundle);
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
+        Parent root = loader.load();*/
+        
+        Pane pane = FxmlUtils.fxmlLoader(MainFxml);
+        
+        Scene scene = new Scene(pane);
        
         stage.setScene(scene);
-        stage.setTitle(bundle.getString("NazwaAplikacji"));
+        stage.setTitle(FxmlUtils.getReasorceBoundle().getString("NazwaAplikacji"));
         stage.show();
     }
 
