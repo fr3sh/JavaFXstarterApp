@@ -56,12 +56,23 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>de.jensd</groupId>
-			<artifactId>fontawesomefx-commons</artifactId>
-			<version>8.15</version>
-			<type>pom</type>
-		</dependency>
+<dependency>
+  <groupId>de.jensd</groupId>
+  <artifactId>fontawesomefx-commons</artifactId>
+  <version>8.15</version>
+  <type>pom</type>
+</dependency>
+
+
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
 
 
 	</dependencies>
