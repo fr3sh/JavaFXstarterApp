@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane id="AnchorPane" fx:id="MainPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.MainController">
+<AnchorPane id="mainScrean" fx:id="MainPane" prefHeight="200" prefWidth="320" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.MainController">
     <children>
-        <Button fx:id="button" layoutX="237.0" layoutY="14.0" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="69.0" text="Abo" />
+        <Button id="btnHole" fx:id="button" layoutX="237.0" layoutY="14.0" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="69.0" text="Abo" />
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <HBox layoutY="3.0" prefHeight="200.0" prefWidth="245.0">
          <children>
