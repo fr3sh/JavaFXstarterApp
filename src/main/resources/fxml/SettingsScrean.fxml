@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="78.0" prefWidth="96.0" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="FxmlControllers.ThisWeekController" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="78.0" prefWidth="96.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.SettingsController">
    <children>
       <VBox prefHeight="20.0" prefWidth="10.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="45.0" text="Button" />
+            <Button minWidth="160.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="160.0" text="SETTINGS SCREAN" />
          </children>
          <padding>
             <Insets top="10.0" />
