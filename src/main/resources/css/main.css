@@ -58,11 +58,25 @@
 	 -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);
 }
 
-
-
-
+#vboxWidth{
+	
 }
 
+#toolbarMenu {
+	 -fx-border-style: solid;
+  -fx-border-width: 1px;
+  -fx-border-color: #212325;
+  -fx-border-radius: 0px 0px 0px 0px;
+  -fx-background-color: linear-gradient( #373D40 0%, #585F63 100%);
+   
+  -fx-font-family: "Helvetica";
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+	-fx-min-height: 45px;
+		-fx-min-width: 145px;
+	 -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);
+}
 
 #mainScrean{
     -fx-background-image: url("../assets/bck.png");
