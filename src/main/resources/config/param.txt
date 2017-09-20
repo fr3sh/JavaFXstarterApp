@@ -1,0 +1,36 @@
+param:one
+one.txt: Prace serwisowe, przeglądy na środowiskach PRD
+one.options: Eme,Imaging,SapArchiving;SMS GATEWAY, Insurance,SMS SERVERS;Imaging,EME
+one.important:y
+one.h:2-4
+
+param:two
+two.txt: Obsługa incydentów (Mateusz Prędki)
+two.options: 
+two.important:y
+two.h:2-4
+
+param:tree
+tree.txt: Przygotowanie raportów na potrzeby działu/departamentu
+tree.options: EME,Imaging;EME;Imaging;SZOK,IMAGING;SZOK
+tree.important:n
+tree.h:1-3
+
+param:four
+four.txt: Prace serwisowe, przeglądy na środowiskach BF, INS, UAT
+four.options: Eme,Imaging,SapArchiving;SMS GATEWAY, Insurance,SMS SERVERS;Imaging,EME
+four.important:n
+four.h:1-2
+
+param:five
+five.txt: Instalacje na środowiskach BF, INS, UAT
+five.options: Eme,Imaging,SapArchiving;SMS GATEWAY, Insurance,SMS SERVERS;Imaging,EME
+five.important:n
+five.h:1-2
+
+param:six
+six.txt: Instalacje na środowisku PRD
+six.options: Eme,Imaging,SapArchiving;SMS GATEWAY, Insurance,SMS SERVERS;Imaging,EME
+six.important:n
+six.h:1-2
+

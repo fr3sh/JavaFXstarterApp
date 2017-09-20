@@ -1,7 +1,12 @@
 package FxmlControllers;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +24,7 @@ import utils.FxmlUtils;
  */
 public class MainController implements Initializable {
     
+
 	
 	@FXML
 	private AnchorPane MainPane;
@@ -58,5 +64,10 @@ public class MainController implements Initializable {
 		}*/
          OptionsScrean.setCenter(FxmlUtils.fxmlLoader(fxml));
     }
+  
+    
+    
+    
+    
     
 }

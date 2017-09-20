@@ -52,6 +52,8 @@ public class NaviLeftSideController implements Initializable {
 	    void goSettings(ActionEvent event) {
 	    	
 	    	maincontroller.ScreanLoadAndSet(SettingsScrean);
+	    	
+	    //	maincontroller.read_param(maincontroller.param);
 
 	    }
 
