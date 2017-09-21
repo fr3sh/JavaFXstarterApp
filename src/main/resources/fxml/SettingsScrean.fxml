@@ -14,7 +14,7 @@
    <children>
       <TabPane prefHeight="371.0" prefWidth="413.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab id="btnCard" text="SECURITY">
+          <Tab text="SECURITY">
                <content>
                   <GridPane>
                     <columnConstraints>

@@ -91,19 +91,78 @@
 #btnCard {
 
 	 
-	 
 	 -fx-background-color: 
         linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%),
         linear-gradient(#020b02, #3a3a3a),
         linear-gradient(#9d9e9d 0%, #6b6a6b 20%, #343534 80%, #242424 100%),
         linear-gradient(#8a8a8a 0%, #6b6a6b 20%, #343534 80%, #262626 100%),
         linear-gradient(#777777 0%, #606060 50%, #505250 51%, #2a2b2a 100%);
-    -fx-background-insets: 0,1,4,5,6;
-   
-    -fx-padding: 5 10 5 10;
+    -fx-background-insets: 0,1,4,5,0;
+   -fx-border-width: 0;
+
+     -fx-margin: 5 10 5 10;
     -fx-font-family: "Helvetica";
-    -fx-font-size: 12px;
+    -fx-font-size: 10px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
   
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+.tab-content-area 
+{
+	
+ /* -fx-background-color: -fx-control-inner-background;*/
+ -fx-background-color: #4c4c4c;
+-fx-padding: 0.0em; /* 0 */
+/* -fx-opacity: -fx-disabled-opacity;*/
+}
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #3c3c3c;
+    
+
+    -fx-border-width: 0 0 3 0;
+    -fx-border-color: #c2c2c2 #c2c2c2 #ff9500 #c2c2c2
+}
+
+.tab .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label { 
+    -fx-alignment: CENTER;
+    -fx-text-fill: #96b946;
+}
+
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+     -fx-border-style: segments(0.166667em, 0.166667em);
+     -fx-border-width: 0;
+     -fx-border-color: -fx-focus-color;
+}
+
+
+.tab-pane:top *.tab-header-area {
+    -fx-background-insets: 0, 0 0 1 0;
+ /* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; /* 5 2 0 10 */
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overridden as 5 2 0 0 */
 }
