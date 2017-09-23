@@ -32,7 +32,7 @@
                   <fx:include fx:id="NaviLeftSideButtons" source="NaviLeftSide.fxml" />
                   <BorderPane fx:id="OptionsScrean">
                      <HBox.margin>
-                        <Insets />
+                        <Insets left="15.0" top="15.0" />
                      </HBox.margin></BorderPane>
                </children>
             </HBox>
