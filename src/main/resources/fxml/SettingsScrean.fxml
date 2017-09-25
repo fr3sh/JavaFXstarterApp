@@ -60,11 +60,11 @@
                                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Spinner prefHeight="25.0" prefWidth="50.0" />
-                                    <Spinner prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="1" />
-                                    <Spinner prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="2" />
-                                    <Spinner prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="3" />
-                                    <Spinner prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="4" />
+                                    <Spinner fx:id="fxpn" initialValue="0" max="8" min="0" prefHeight="25.0" prefWidth="50.0" />
+                                    <Spinner fx:id="fxwt" initialValue="0" max="8" min="0" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="1" />
+                                    <Spinner fx:id="fxsr" initialValue="0" max="8" min="0" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="2" />
+                                    <Spinner fx:id="fxczw" initialValue="0" max="8" min="0" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="3" />
+                                    <Spinner fx:id="fxpt" initialValue="0" max="8" min="0" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="4" />
                                     <Label text="PN" textFill="#549e13" GridPane.rowIndex="1" />
                                     <Label text="WT" textFill="#549e13" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <Label text="CZW" textFill="#549e13" GridPane.columnIndex="3" GridPane.rowIndex="1" />
@@ -74,10 +74,10 @@
                               </GridPane>
                            </children>
                         </VBox>
-                        <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <PasswordField fx:id="fxpass" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label text="Czy Wypełnia:ć" textFill="WHITE" GridPane.rowIndex="3" />
-                        <CheckBox mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Button mnemonicParsing="false" text="Zapisz" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                        <CheckBox fx:id="fxsub" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Button fx:id="fxsaveButton" mnemonicParsing="false" text="Zapisz" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets right="10.0" />
                            </GridPane.margin>

@@ -74,7 +74,7 @@ public void  read_conf (String nazwa){
            			System.out.println("Wpisane DNI H: " + temp2[i]);
            			conf.getWeekHodj().add(Integer.parseInt(temp2[i]));
            		}
-                 
+           		conf.setPROPforLIST();
                   //  System.out.println(pdf_dir_path);
              }
           	 
