@@ -1,9 +1,12 @@
 package com.fr3sh.config;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import utils.FxmlUtils;
@@ -82,10 +85,10 @@ public void  read_conf (String nazwa){
                 String [] arr = thisLine.split(":", 2);
                 String tt = arr[1].trim();
                 if (tt.contains("y")){
-                	conf.setSubmit(true);
+                	conf.setSubmitProp(true);
                 }else
                 {
-                	conf.setSubmit(false);
+                	conf.setSubmitProp(false);
                 }
                 
                  //  System.out.println(pdf_dir_path);
@@ -111,6 +114,29 @@ public void  read_conf (String nazwa){
 
  
 }
+
+
+public void save_conf (String nazwa) throws IOException {
+	
+	
+	  try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(nazwa))) {
+		  
+		  
+          writer.write("login: "+ conf.getLogin() +"\n");
+          writer.write("pass: "+ conf.getPass() +"\n");
+          writer.write("dni:"+ conf.getPn() +";"+ conf.getWt()  +";" + conf.getSr()  +";" + conf.getCzw()  +";" + conf.getPt()  +";"          +"\n");
+         
+          if (conf.getSubmit()) {
+        	  writer.write("submit:y \n");  
+          }else {
+        	  writer.write("submit:n \n"); 
+          }
+          
+          
+          
+      } // the file will be automatically closed
+}
+
   	
 public void  read_param (String nazwa){
         
