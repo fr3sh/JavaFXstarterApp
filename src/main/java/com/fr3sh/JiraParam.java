@@ -2,10 +2,14 @@ package com.fr3sh;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
+
 
 public class JiraParam {
 	
-	private String nazwa;
+	
+	private SimpleStringProperty nazwa = new SimpleStringProperty();
+	//private String nazwa;
 	private String link;
 	private ArrayList<String> options;
 	private ArrayList<Integer> h;
@@ -35,13 +39,28 @@ public String toString() {
 	return super.toString();
 }
 
+
 public String getNazwa() {
+	return nazwa.get();
+}
+
+public SimpleStringProperty nazwaProperty() {
+	return nazwa;
+}
+
+public void setNazwa(String nazwa) {
+	this.nazwa.set(nazwa); 
+}
+
+
+
+/*public String getNazwa() {
 	return nazwa;
 }
 
 public void setNazwa(String nazwa) {
 	this.nazwa = nazwa;
-}
+}*/
 
 public String getLink() {
 	return link;

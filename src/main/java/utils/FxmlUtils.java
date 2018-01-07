@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 
 public class FxmlUtils {
 
+	
 	public static Pane fxmlLoader (String Path) {
 		
 		FXMLLoader loader = new FXMLLoader(FxmlUtils.class.getResource(Path));

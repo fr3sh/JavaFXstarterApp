@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.SettingsScreanParametersController">
+<AnchorPane id="OptParam" prefWidth="430.0" stylesheets="@../css/titlepane.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.SettingsScreanParametersController">
    <padding>
       <Insets top="10.0" />
    </padding>
@@ -25,9 +25,9 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="416.0">
                <children>
-                  <ScrollPane prefHeight="300.0">
+                  <ScrollPane opacity="1" prefHeight="240.0" prefWidth="410.0">
                      <content>
-                        <GridPane fx:id="fxmainGridPane" hgap="10.0" prefWidth="413.0" vgap="10.0">
+                        <GridPane fx:id="fxmainGridPane" hgap="10.0" prefWidth="390.0" vgap="10.0">
                            <columnConstraints>
                               <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="202.0" minWidth="10.0" prefWidth="132.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="313.0" minWidth="10.0" prefWidth="271.0" />
@@ -36,7 +36,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="60.0" valignment="TOP" vgrow="SOMETIMES" />
                               <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="60.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
                               <Label prefHeight="17.0" prefWidth="104.0" text="Nazwa Kontenera:" textFill="WHITE">
@@ -53,7 +53,7 @@
                               <Label text="Ważność:" textFill="WHITE" GridPane.rowIndex="2" />
                               <Label text="Zakres godzinowy" textFill="WHITE" GridPane.rowIndex="3" />
                               <CheckBox fx:id="fxsub" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <GridPane prefHeight="42.0" prefWidth="271.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <columnConstraints>
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="124.0" minWidth="10.0" prefWidth="63.0" />
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="85.0" minWidth="0.0" prefWidth="24.0" />
@@ -75,16 +75,16 @@
                                  <children>
                                     <VBox fx:id="fxBox1" prefWidth="100.0" spacing="25.0">
                                        <children>
-                                          <HBox prefHeight="100.0" prefWidth="200.0" spacing="1.0">
+                                          <HBox prefHeight="40.0" prefWidth="200.0" spacing="1.0">
                                              <children>
-                                                <Label text="1." />
+                                                <Label text="1." textFill="WHITE" />
                                                 <TextField fx:id="fxFillOptions" maxHeight="30.0" />
                                                 <Button fx:id="fxRemoveLine" mnemonicParsing="false" onMouseClicked="#removeLine" text="X" />
                                              </children>
                                           </HBox>
                                        </children>
                                     </VBox>
-                                    <Button id="fxAdd_Opcje_wypelniania" fx:id="fxAddMoreOptions" mnemonicParsing="false" onMouseClicked="#addMoreInputs" text="+" />
+                                    <Button id="fxAdd_Opcje_wypelniania" fx:id="fxAddMoreOptions" mnemonicParsing="false" onMouseClicked="#addMoreInputs" text="Dodaj" />
                                  </children>
                                  <padding>
                                     <Insets top="10.0" />
@@ -97,6 +97,12 @@
                </children>
             </AnchorPane>
         </content>
+         <opaqueInsets>
+            <Insets top="10.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
       </TitledPane>
    </children>
 </AnchorPane>

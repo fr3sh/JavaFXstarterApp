@@ -21,6 +21,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import utils.FxmlUtils;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -48,10 +49,20 @@ public class SettingsScreanParametersController implements Initializable {
     
     @FXML
     private Button fxRemoveLine;
-
+  
+    @FXML
+    private TextField fxkontenerName;
     
 
-    @FXML
+    public TextField getFxkontenerName() {
+		return fxkontenerName;
+	}
+
+	public void setFxkontenerName(TextField fxkontenerName) {
+		this.fxkontenerName = fxkontenerName;
+	}
+
+	@FXML
     void removeLine(MouseEvent event) {
 
     }
@@ -64,11 +75,12 @@ public class SettingsScreanParametersController implements Initializable {
         	//HBox tb = (HBox) scene.lookup("#test");
         	//fxBox1.getChildren().remove(fxBox1.lookup("#test"));
         	fxBox1.getChildren().remove(((HBox) ((Button)evt.getSource()).getParent()));
-        	
+        	i--;
         	//((HBox) ((Button)evt.getSource()).getParent()).getChildren();
         }
     }
     
+    Integer i = 1;
     
     @FXML
     void addMoreInputs(MouseEvent event) throws IOException {
@@ -78,8 +90,9 @@ public class SettingsScreanParametersController implements Initializable {
     	//Scene scene = source.getScene();
     	//Node nodeToFind = scene.lookup("#nodeToFindId");
     	
-    	
-    	Label n = new Label("2.");
+    	i++;
+    	Label n = new Label(i.toString()+ ".");
+    	n.setTextFill(Color.web("orange", 0.5));
     	Button x = new Button("X");
     	
     	x.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());

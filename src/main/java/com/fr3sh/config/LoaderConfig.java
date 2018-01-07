@@ -19,6 +19,11 @@ import com.fr3sh.JiraParam;
 public class LoaderConfig {
 
 	List<JiraParam> allParam;
+	public List<JiraParam> getAllParam() {
+		return allParam;
+	}
+
+
 	public static String nazwa_conf = "src/main/resources/config/conf.txt";
 	public static String param = "src/main/resources/config/param.txt";
 	

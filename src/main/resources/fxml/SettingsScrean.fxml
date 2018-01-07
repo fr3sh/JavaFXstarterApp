@@ -5,6 +5,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -12,13 +13,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="386.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.SettingsController">
+<AnchorPane prefWidth="420.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.SettingsController">
    <children>
-      <TabPane prefWidth="430.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="fxTabpane1" prefWidth="470.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="SECURITY">
                <content>
@@ -88,12 +90,33 @@
             </Tab>
           <Tab text="PRAMETR CONFIG">
                <content>
-                  <VBox prefWidth="100.0">
+              <AnchorPane>
                      <children>
-                        <fx:include source="SettingsScreanParameters.fxml" />
-                        <Button fx:id="fxAddComp" mnemonicParsing="false" text="+" />
+                        <ScrollPane maxHeight="700.0" prefWidth="460.0">
+                          <content>
+                            <AnchorPane>
+                                 <children>
+                                    <VBox alignment="TOP_RIGHT">
+                                       <children>
+                                          <fx:include source="SettingsScreanParameters.fxml" />
+                                          <VBox fx:id="fxVboxParam" prefHeight="0.0" />
+                                          <HBox alignment="TOP_RIGHT" prefWidth="200.0" spacing="20.0">
+                                             <children>
+                                                <Button id="fxAddParamSettings" fx:id="fxAddComp" mnemonicParsing="false" onMouseClicked="#AddMoreParam" text="Dodaj Kontener" />
+                                                <Button fx:id="fxSaveParam2" mnemonicParsing="false" onMouseClicked="#SaveParam2" text="Zapisz" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </ScrollPane>
                      </children>
-                  </VBox>
+                  </AnchorPane>
                </content></Tab>
         </tabs>
       </TabPane>
