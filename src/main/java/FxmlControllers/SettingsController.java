@@ -147,7 +147,12 @@ public class SettingsController implements Initializable {
  		}
          SettingsScreanParametersController SettController = (SettingsScreanParametersController) loader.getController();
          
-        SettController.getFxkontenerName().textProperty().bindBidirectional(confFile.getConf().loginProperty());
+         //Poprawic to nie nazwa kontenera tylko link kontener tdodac nowe pole
+         SettController.getFxnazwa().textProperty().bindBidirectional(confFile.getParams().nazwaProperty());
+       
+         SettController.getFxkontenerName().textProperty().bindBidirectional(confFile.getParams().linkProperty());
+        
+         //SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getParams().linkProperty());
        
     	fxVboxParam.getChildren().add(a);
     	

@@ -53,8 +53,30 @@ public class SettingsScreanParametersController implements Initializable {
     @FXML
     private TextField fxkontenerName;
     
+    @FXML
+    private TextField fxFillOptions;
+    
+    
+    @FXML
+    private TextField  fxnazwa;
 
-    public TextField getFxkontenerName() {
+    public TextField getFxnazwa() {
+		return fxnazwa;
+	}
+
+	public void setFxnazwa(TextField fxnazwa) {
+		this.fxnazwa = fxnazwa;
+	}
+
+	public TextField getFxFillOptions() {
+		return fxFillOptions;
+	}
+
+	public void setFxFillOptions(TextField fxFillOptions) {
+		this.fxFillOptions = fxFillOptions;
+	}
+
+	public TextField getFxkontenerName() {
 		return fxkontenerName;
 	}
 

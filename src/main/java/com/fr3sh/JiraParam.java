@@ -9,8 +9,11 @@ public class JiraParam {
 	
 	
 	private SimpleStringProperty nazwa = new SimpleStringProperty();
+	private SimpleStringProperty link = new SimpleStringProperty();
 	//private String nazwa;
-	private String link;
+	//private String link;
+	
+
 	private ArrayList<String> options;
 	private ArrayList<Integer> h;
 	private String important;
@@ -62,13 +65,30 @@ public void setNazwa(String nazwa) {
 	this.nazwa = nazwa;
 }*/
 
-public String getLink() {
+/*public String getLink() {
 	return link;
 }
 
 public void setLink(String link) {
 	this.link = link;
+}*/
+
+
+
+public String getLink() {
+	return link.get();
 }
+
+public SimpleStringProperty linkProperty() {
+	return link;
+}
+
+public void setLink(String link) {
+	this.link.set(link); 
+}
+
+
+
 
 public ArrayList<String> getOptions() {
 	return options;
