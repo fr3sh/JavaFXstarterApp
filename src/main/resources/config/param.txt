@@ -31,6 +31,6 @@ five.h:1-2
 param:six
 six.txt: Instalacje na środowisku PRD
 six.options: Eme,Imaging,SapArchiving;SMS GATEWAY, Insurance,SMS SERVERS;Imaging,EME
-six.important:n
+six.important:y
 six.h:1-2
 

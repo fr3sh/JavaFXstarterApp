@@ -6,8 +6,13 @@ import java.util.ResourceBundle;
 
 import com.fr3sh.config.LoaderConfig;
 
+//import FxmlControllers.SettingsScreanParametersController.MyEventHandler;
 import FxmlInscanceContolers.CustomSettings;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,8 +23,10 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import utils.FxmlUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -75,7 +82,8 @@ public class SettingsController implements Initializable {
     private TabPane fxTabpane1;
     
 
-    
+    Integer numer = 1;
+    SettingsScreanParametersController SettController;
     
     @FXML
     void save(MouseEvent event) throws IOException {
@@ -145,12 +153,55 @@ public class SettingsController implements Initializable {
  		} catch (IOException e) {
  			e.printStackTrace();
  		}
-         SettingsScreanParametersController SettController = (SettingsScreanParametersController) loader.getController();
+         SettController = (SettingsScreanParametersController) loader.getController();
          
          //Poprawic to nie nazwa kontenera tylko link kontener tdodac nowe pole
          SettController.getFxnazwa().textProperty().bindBidirectional(confFile.getParams().nazwaProperty());
        
          SettController.getFxkontenerName().textProperty().bindBidirectional(confFile.getParams().linkProperty());
+         
+         if ( confFile.getParams().importantProperty().get().equals('y')) {
+        	 System.out.println("JEST YYYYYYYYY");
+         }
+        // SettController.getFxsub().textProperty().bindBidirectional(confFile.getParams().getImp1().toString());
+         SettController.getFxsub().selectedProperty().bindBidirectional(confFile.getParams().getImp1());
+        
+      //   Bindings.bindBidirectional(confFile.getParams().importantProperty(), SettController.getFxsub().selectedProperty(), );
+         for (int i =0; i<confFile.getParams().getOptions().size(); i++) {
+            
+        	if (i==0) {
+        		SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getParams().OptionsProperty().get(i));
+        		//numer++;
+        	} 
+        	else {
+         	 //SimpleStringProperty temp1 = new SimpleStringProperty(confFile.getParams().getOptions().get(i));
+         	 
+         	 /////
+         	TextField temp2 = new TextField();
+        	HBox hb = new HBox();
+        	hb.setId("test");
+
+        	numer++;
+        	Label n = new Label(numer.toString()+ ".");
+        	n.setTextFill(Color.web("orange", 0.5));
+        	Button x = new Button("X");
+        	
+        	x.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+        	
+
+        	
+        	hb.getChildren().add(n);
+        	hb.getChildren().add(temp2);
+        	hb.getChildren().add(x);
+        	
+        	temp2.textProperty().bindBidirectional(confFile.getParams().OptionsProperty().get(i)); 
+        	//temp2.textProperty().bindBidirectional(temp1);
+        	
+        	 SettController.getFxBox1().getChildren().add(hb);
+        	//fxBox1.getChildren().add(hb);
+        	}
+         }
+ 
         
          //SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getParams().linkProperty());
        
@@ -160,6 +211,17 @@ public class SettingsController implements Initializable {
     	fxTabpane1.requestLayout();  //odswierzenie TablePane konieczne!
     
     }    
+    
+    private class MyEventHandler implements EventHandler<Event>{
+        @Override
+        public void handle(Event evt) {
+      
+        	
+       	 	SettController.getFxBox1().getChildren().remove(((HBox) ((Button)evt.getSource()).getParent()));
+        	numer--;
+        	
+        }
+    }
     
     
     

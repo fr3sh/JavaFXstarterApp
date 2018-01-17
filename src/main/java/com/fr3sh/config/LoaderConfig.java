@@ -175,7 +175,9 @@ public void  read_param (String nazwa){
             	
             				//arr[1].trim();
             		for (int i = 0; i< temp2.length; i++){
-            			params.getOptions().add(temp2[i]);
+            			//params.getOptions().add(temp2[i]);
+            			params.addOptions(temp2[i]);
+            			
             		}
                  
   		

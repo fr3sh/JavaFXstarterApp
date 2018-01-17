@@ -2,6 +2,10 @@ package com.fr3sh;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 
@@ -14,11 +18,34 @@ public class JiraParam {
 	//private String link;
 	
 
-	private ArrayList<String> options;
+	//private ArrayList<String> options;
+	private ArrayList<SimpleStringProperty> options = new ArrayList<SimpleStringProperty>();
 	private ArrayList<Integer> h;
-	private String important;
+	//private String important;
+	private SimpleStringProperty  important = new SimpleStringProperty();
+	private SimpleBooleanProperty imp1 = new SimpleBooleanProperty();
 	
 	
+	public SimpleBooleanProperty getImp1() {
+		return imp1;
+	}
+
+
+
+	public void setImp1(SimpleBooleanProperty imp1) {
+		this.imp1 = imp1;
+		if (imp1.get()) {
+			setImportant2("y");
+		}
+		else {
+			
+				setImportant2("n");
+		
+		}
+	}
+
+
+
 	public  JiraParam() {
 		setOptions(new ArrayList<String>());
 		setH(new ArrayList<Integer>());
@@ -42,6 +69,31 @@ public String toString() {
 	return super.toString();
 }
 
+
+public String getImportant() {
+	return important.get();
+}
+
+public void setImportant(String important) {
+	this.important.set(important);
+	
+	if (important.equals("y")) {
+	this.imp1.set(true);
+	}else {
+		this.imp1.set(false);
+	}
+}
+
+
+public void setImportant2(String important) {
+	this.important.set(important);
+	
+
+}
+
+public SimpleStringProperty importantProperty() {
+	return important;
+}
 
 public String getNazwa() {
 	return nazwa.get();
@@ -89,22 +141,45 @@ public void setLink(String link) {
 
 
 
-
 public ArrayList<String> getOptions() {
+	
+	ArrayList<String> opt = new ArrayList<String>();
+	for (int i = 0; i < this.options.size(); i++) {
+		opt.add(this.options.get(i).toString());
+	}
+	//this.options.
+	
+	return opt;
+}
+
+public ArrayList<SimpleStringProperty> OptionsProperty() {
 	return options;
 }
 
 public void setOptions(ArrayList<String> arrayList) {
-	this.options = arrayList;
+	//this.options = arrayList;
+	for (int i = 0; i < arrayList.size(); i++) {
+		//this.options.set(i,  new SimpleStringProperty(arrayList.get(i)) );
+		this.options.add(new SimpleStringProperty(arrayList.get(i)));
+	}
+	//this.options.set(index, element)
 }
 
-public String getImportant() {
-	return important;
+public void addOptions(String temp1) {
+	//this.options = arrayList;
+	
+		this.options.add(new SimpleStringProperty(temp1));
+
+	//this.options.set(index, element)
 }
 
-public void setImportant(String important) {
-	this.important = important;
-}
+
+
+
+
+
+
+
 
 public ArrayList<Integer> getH() {
 	return h;

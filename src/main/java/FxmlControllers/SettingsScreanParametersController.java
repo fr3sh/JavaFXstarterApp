@@ -48,6 +48,25 @@ public class SettingsScreanParametersController implements Initializable {
     private VBox fxBox1;
     
     @FXML
+    private CheckBox fxsub;
+    
+    public CheckBox getFxsub() {
+		return fxsub;
+	}
+
+	public void setFxsub(CheckBox fxsub) {
+		this.fxsub = fxsub;
+	}
+
+	public VBox getFxBox1() {
+		return fxBox1;
+	}
+
+	public void setFxBox1(VBox fxBox1) {
+		this.fxBox1 = fxBox1;
+	}
+
+	@FXML
     private Button fxRemoveLine;
   
     @FXML
