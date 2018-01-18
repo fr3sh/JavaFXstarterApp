@@ -6,6 +6,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 
@@ -20,7 +22,8 @@ public class JiraParam {
 
 	//private ArrayList<String> options;
 	private ArrayList<SimpleStringProperty> options = new ArrayList<SimpleStringProperty>();
-	private ArrayList<Integer> h;
+	private ArrayList<ObjectProperty<Integer>> h = new ArrayList<ObjectProperty<Integer>>();
+	//private ArrayList<Integer> h;
 	//private String important;
 	private SimpleStringProperty  important = new SimpleStringProperty();
 	private SimpleBooleanProperty imp1 = new SimpleBooleanProperty();
@@ -47,8 +50,8 @@ public class JiraParam {
 
 
 	public  JiraParam() {
-		setOptions(new ArrayList<String>());
-		setH(new ArrayList<Integer>());
+		//setOptions(new ArrayList<String>());
+		//setH(new ArrayList<Integer>());
 	}
 	
 
@@ -69,7 +72,6 @@ public String toString() {
 	return super.toString();
 }
 
-
 public String getImportant() {
 	return important.get();
 }
@@ -84,16 +86,26 @@ public void setImportant(String important) {
 	}
 }
 
-
 public void setImportant2(String important) {
 	this.important.set(important);
-	
-
 }
 
 public SimpleStringProperty importantProperty() {
 	return important;
 }
+
+
+
+/*public ArrayList<Integer> getH() {
+	return h;
+}
+
+public void setH(ArrayList<Integer> arrayList) {
+	this.h = arrayList;
+}*/
+
+
+
 
 public String getNazwa() {
 	return nazwa.get();
@@ -139,7 +151,29 @@ public void setLink(String link) {
 	this.link.set(link); 
 }
 
+public ArrayList<Integer> getH() {
+	ArrayList<Integer> opt = new ArrayList<Integer>();
+	for (int i = 0; i < this.h.size(); i++) {
+		
+		opt.add(this.h.get(i).get());
+	}
+		
+	return opt;
+}
 
+public ArrayList<ObjectProperty<Integer>> hProperty() {
+	return h;
+}
+
+public void setH(ArrayList<Integer> arrayList) {
+	for (int i = 0; i < arrayList.size(); i++) {
+		this.h.add(new SimpleObjectProperty<>(arrayList.get(i)));
+	}
+}
+
+public void addH(Integer temp1) {
+		this.h.add(new  SimpleObjectProperty<>(temp1));
+}
 
 public ArrayList<String> getOptions() {
 	
@@ -173,19 +207,4 @@ public void addOptions(String temp1) {
 	//this.options.set(index, element)
 }
 
-
-
-
-
-
-
-
-
-public ArrayList<Integer> getH() {
-	return h;
-}
-
-public void setH(ArrayList<Integer> arrayList) {
-	this.h = arrayList;
-}
 }

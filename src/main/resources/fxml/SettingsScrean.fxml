@@ -98,7 +98,11 @@
                                  <children>
                                     <VBox alignment="TOP_RIGHT">
                                        <children>
-                                          <fx:include source="SettingsScreanParameters.fxml" />
+                                          <VBox fx:id="fxVboxStarter">
+                                             <children>
+                                                <fx:include source="SettingsScreanParameters.fxml" />
+                                             </children>
+                                          </VBox>
                                           <VBox fx:id="fxVboxParam" prefHeight="0.0" />
                                           <HBox alignment="TOP_RIGHT" prefWidth="200.0" spacing="20.0">
                                              <children>

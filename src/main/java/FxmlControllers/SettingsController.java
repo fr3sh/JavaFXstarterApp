@@ -32,197 +32,190 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+
 /**
  *
  * @author mateusz.predki
  */
 public class SettingsController implements Initializable {
-    
-		
+
 	LoaderConfig confFile;
+
+	@FXML
+	private TextField fxlogin;
+
+	@FXML
+	private Spinner<Integer> fxpn;
+
+	@FXML
+	private Spinner<Integer> fxwt;
+
+	@FXML
+	private Spinner<Integer> fxsr;
+
+	@FXML
+	private Spinner<Integer> fxczw;
+
+	@FXML
+	private Spinner<Integer> fxpt;
+
+	@FXML
+	private PasswordField fxpass;
+
+	@FXML
+	private CheckBox fxsub;
+
+	@FXML
+	private Button fxsaveButton;
+
+	@FXML
+	private Button fxAddParamSettings;
+
+	@FXML
+	private Button fxSaveParam2;
+
+	@FXML
+	private VBox fxVboxParam;
 	
-    @FXML
-    private TextField fxlogin;
-    
-    @FXML
-    private Spinner<Integer> fxpn;
+	@FXML
+	private VBox fxVboxStarter;
 
-    @FXML
-    private Spinner<Integer> fxwt;
+	@FXML
+	private TabPane fxTabpane1;
 
-    @FXML
-    private Spinner<Integer> fxsr;
+	Integer numer = 1;
+	SettingsScreanParametersController SettController;
 
-    @FXML
-    private Spinner<Integer> fxczw;
+	@FXML
+	void save(MouseEvent event) throws IOException {
+		// System.out.println("TEST PRZYCISKU");;
+		confFile.save_conf("src/main/resources/config/conf2.txt");
 
-    @FXML
-    private Spinner<Integer> fxpt;
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(FxmlUtils.getReasorceBoundle().getString("Plik_save_title"));
+		alert.setHeaderText(null);
+		alert.setContentText(FxmlUtils.getReasorceBoundle().getString("Plik_save"));
 
-    @FXML
-    private PasswordField fxpass;
+		alert.showAndWait();
 
-    @FXML
-    private CheckBox fxsub;
+	}
 
-    @FXML
-    private Button fxsaveButton;
+	@FXML
+	void AddMoreParam(MouseEvent event) throws IOException {
 
-    @FXML
-    private Button fxAddParamSettings;
-    
-    @FXML
-    private Button fxSaveParam2;
-   
-    @FXML
-    private VBox fxVboxParam;
-   
-    
-    @FXML
-    private TabPane fxTabpane1;
-    
+		fxVboxParam.getChildren().add((FxmlUtils.fxmlLoader("/fxml/SettingsScreanParameters.fxml")));
+		fxTabpane1.requestLayout(); // odswierzenie TablePane konieczne!
 
-    Integer numer = 1;
-    SettingsScreanParametersController SettController;
-    
-    @FXML
-    void save(MouseEvent event) throws IOException {
-    	//System.out.println("TEST PRZYCISKU");;
-    	confFile.save_conf("src/main/resources/config/conf2.txt");
-    	
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle(FxmlUtils.getReasorceBoundle().getString("Plik_save_title"));
-    	alert.setHeaderText(null);
-    	alert.setContentText(FxmlUtils.getReasorceBoundle().getString("Plik_save"));
+	}
 
-    	alert.showAndWait();
-    	
-    }
-    
-    @FXML
-    void AddMoreParam(MouseEvent event) throws IOException {
-    	
-    	 fxVboxParam.getChildren().add((FxmlUtils.fxmlLoader("/fxml/SettingsScreanParameters.fxml")));
-    	 fxTabpane1.requestLayout();  //odswierzenie TablePane konieczne!
+	@FXML
+	void SaveParam2(MouseEvent event) throws IOException {
 
-    }
-    
-    @FXML
-    void SaveParam2(MouseEvent event) throws IOException {
-    	
+	}
 
+	public void initConfFile() {
+		confFile.read_conf(confFile.nazwa_conf);
+		// System.out.println(confFile.getConf().getLogin());
+		fxlogin.textProperty().bindBidirectional(confFile.getConf().loginProperty());
 
-    }
-    
-    
-    public void initConfFile() {
-    	confFile.read_conf(confFile.nazwa_conf);
-    	//System.out.println(confFile.getConf().getLogin());
-    	fxlogin.textProperty().bindBidirectional(confFile.getConf().loginProperty());
-    	
-    	fxpass.textProperty().bindBidirectional(confFile.getConf().passProperty());
-    	
-    	fxpn.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getPnProp());
-    	fxwt.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getWtProp());
-    	fxsr.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getSrProp());
-    	fxczw.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getCzwProp());
-    	fxpt.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getPtProp());
-    	
-    	//fxsub.selectedProperty().bindBidirectional(confFile.getConf().getSubmit());
-    	fxsub.selectedProperty().bindBidirectional(confFile.getConf().getSubmitPropProperty());
-    	//fxpn.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getWeekProperty().get(0));
-    }
-    
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    	confFile = new LoaderConfig();
-    	initConfFile();
-    	
-    	//////// PARAM MODE/////
-    	confFile.read_param(confFile.param);
-    	
-    	//confFile.getAllParam().size();
-    	
-    	//fxlogin.textProperty().bindBidirectional(confFile.getConf().loginProperty());
+		fxpass.textProperty().bindBidirectional(confFile.getConf().passProperty());
 
-    	FXMLLoader loader = new FXMLLoader(FxmlUtils.class.getResource("/fxml/SettingsScreanParameters.fxml"));
-        loader.setResources(ResourceBundle.getBundle("bundles.messages"));
-        Pane a = new Pane();
-         try {
-        	a =  loader.load();
- 		} catch (IOException e) {
- 			e.printStackTrace();
- 		}
-         SettController = (SettingsScreanParametersController) loader.getController();
-         
-         //Poprawic to nie nazwa kontenera tylko link kontener tdodac nowe pole
-         SettController.getFxnazwa().textProperty().bindBidirectional(confFile.getParams().nazwaProperty());
-       
-         SettController.getFxkontenerName().textProperty().bindBidirectional(confFile.getParams().linkProperty());
-         
-         if ( confFile.getParams().importantProperty().get().equals('y')) {
-        	 System.out.println("JEST YYYYYYYYY");
-         }
-        // SettController.getFxsub().textProperty().bindBidirectional(confFile.getParams().getImp1().toString());
-         SettController.getFxsub().selectedProperty().bindBidirectional(confFile.getParams().getImp1());
-        
-      //   Bindings.bindBidirectional(confFile.getParams().importantProperty(), SettController.getFxsub().selectedProperty(), );
-         for (int i =0; i<confFile.getParams().getOptions().size(); i++) {
-            
-        	if (i==0) {
-        		SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getParams().OptionsProperty().get(i));
-        		//numer++;
-        	} 
-        	else {
-         	 //SimpleStringProperty temp1 = new SimpleStringProperty(confFile.getParams().getOptions().get(i));
-         	 
-         	 /////
-         	TextField temp2 = new TextField();
-        	HBox hb = new HBox();
-        	hb.setId("test");
+		fxpn.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getPnProp());
+		fxwt.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getWtProp());
+		fxsr.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getSrProp());
+		fxczw.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getCzwProp());
+		fxpt.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getPtProp());
 
-        	numer++;
-        	Label n = new Label(numer.toString()+ ".");
-        	n.setTextFill(Color.web("orange", 0.5));
-        	Button x = new Button("X");
-        	
-        	x.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
-        	
+		// fxsub.selectedProperty().bindBidirectional(confFile.getConf().getSubmit());
+		fxsub.selectedProperty().bindBidirectional(confFile.getConf().getSubmitPropProperty());
+		// fxpn.getValueFactory().valueProperty().bindBidirectional(confFile.getConf().getWeekProperty().get(0));
+	}
 
-        	
-        	hb.getChildren().add(n);
-        	hb.getChildren().add(temp2);
-        	hb.getChildren().add(x);
-        	
-        	temp2.textProperty().bindBidirectional(confFile.getParams().OptionsProperty().get(i)); 
-        	//temp2.textProperty().bindBidirectional(temp1);
-        	
-        	 SettController.getFxBox1().getChildren().add(hb);
-        	//fxBox1.getChildren().add(hb);
-        	}
-         }
- 
-        
-         //SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getParams().linkProperty());
-       
-    	fxVboxParam.getChildren().add(a);
-    	
-    	
-    	fxTabpane1.requestLayout();  //odswierzenie TablePane konieczne!
-    
-    }    
-    
-    private class MyEventHandler implements EventHandler<Event>{
-        @Override
-        public void handle(Event evt) {
-      
-        	
-       	 	SettController.getFxBox1().getChildren().remove(((HBox) ((Button)evt.getSource()).getParent()));
-        	numer--;
-        	
-        }
-    }
-    
-    
-    
+	public void initialize(URL url, ResourceBundle rb) {
+		// TODO
+		confFile = new LoaderConfig();
+		initConfFile();
+
+		//////// PARAM MODE/////
+		confFile.read_param(confFile.param);
+
+		if(confFile.getAllParam().size()>0) {
+			fxVboxStarter.getChildren().clear();
+			//fxVboxStarter.getChildren().remove(1);
+		}
+		
+		for (int j = 0; j < confFile.getAllParam().size(); j++) {
+
+			numer = 1;
+
+			FXMLLoader loader = new FXMLLoader(FxmlUtils.class.getResource("/fxml/SettingsScreanParameters.fxml"));
+			loader.setResources(ResourceBundle.getBundle("bundles.messages"));
+			Pane a = new Pane();
+			try {
+				a = loader.load();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			SettController = (SettingsScreanParametersController) loader.getController();
+
+			// Poprawic to nie nazwa kontenera tylko link kontener tdodac nowe pole
+			// SettController.getFxkontenerName().textProperty().bindBidirectional(confFile.getParams().linkProperty());
+			SettController.getFxnazwa().textProperty().bindBidirectional(confFile.getAllParam().get(j).nazwaProperty());
+			SettController.getFxkontenerName().textProperty()
+					.bindBidirectional(confFile.getAllParam().get(j).linkProperty());
+			SettController.getFxsub().selectedProperty().bindBidirectional(confFile.getAllParam().get(j).getImp1());
+
+			SettController.getFxOd().getValueFactory().valueProperty()
+					.bindBidirectional(confFile.getAllParam().get(j).hProperty().get(0));
+			SettController.getFxDo().getValueFactory().valueProperty()
+					.bindBidirectional(confFile.getAllParam().get(j).hProperty().get(1));
+
+			for (int i = 0; i < confFile.getAllParam().get(j).getOptions().size(); i++) {
+
+				if (i == 0) {
+					SettController.getFxFillOptions().textProperty()
+							.bindBidirectional(confFile.getAllParam().get(j).OptionsProperty().get(i));
+
+				} else {
+
+					TextField temp2 = new TextField();
+					HBox hb = new HBox();
+					hb.setId("test");
+
+					numer++;
+					Label n = new Label(numer.toString() + ".");
+					n.setTextFill(Color.web("orange", 0.5));
+					Button x = new Button("X");
+
+					x.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+
+					hb.getChildren().add(n);
+					hb.getChildren().add(temp2);
+					hb.getChildren().add(x);
+
+					temp2.textProperty().bindBidirectional(confFile.getAllParam().get(j).OptionsProperty().get(i));
+
+					SettController.getFxBox1().getChildren().add(hb);
+
+				}
+			}
+
+			// SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getParams().linkProperty());
+			fxVboxParam.getChildren().add(a);
+			fxTabpane1.requestLayout(); // odswierzenie TablePane konieczne!
+
+		}
+
+	}
+
+	private class MyEventHandler implements EventHandler<Event> {
+		@Override
+		public void handle(Event evt) {
+
+			SettController.getFxBox1().getChildren().remove(((HBox) ((Button) evt.getSource()).getParent()));
+			numer--;
+
+		}
+	}
+
 }

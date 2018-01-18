@@ -65,8 +65,8 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Spinner fx:id="fxpn" initialValue="0" max="8" min="0" prefHeight="25.0" prefWidth="50.0" />
-                                    <Spinner fx:id="fxwt" initialValue="0" max="8" min="0" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="2" />
+                                    <Spinner fx:id="fxOd" initialValue="0" max="8" min="0" prefHeight="25.0" prefWidth="50.0" />
+                                    <Spinner fx:id="fxDo" initialValue="0" max="8" min="0" prefHeight="25.0" prefWidth="50.0" GridPane.columnIndex="2" />
                                     <Label text="OD" textFill="#549e13" GridPane.rowIndex="1" />
                                     <Label text="DO" textFill="#549e13" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                     <Label text="-" GridPane.columnIndex="1" />

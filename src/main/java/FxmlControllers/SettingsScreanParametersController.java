@@ -47,6 +47,28 @@ public class SettingsScreanParametersController implements Initializable {
     @FXML
     private VBox fxBox1;
     
+    public Spinner<Integer> getFxOd() {
+		return fxOd;
+	}
+
+	public void setFxOd(Spinner<Integer> fxOd) {
+		this.fxOd = fxOd;
+	}
+
+	public Spinner<Integer> getFxDo() {
+		return fxDo;
+	}
+
+	public void setFxDo(Spinner<Integer> fxDo) {
+		this.fxDo = fxDo;
+	}
+
+	@FXML
+    private Spinner<Integer> fxOd;
+    
+    @FXML
+    private Spinner<Integer> fxDo;
+    
     @FXML
     private CheckBox fxsub;
     

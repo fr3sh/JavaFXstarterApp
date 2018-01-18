@@ -193,7 +193,8 @@ public void  read_param (String nazwa){
             		String [] temp2 = arr[1].split("-");
             		
             		for (int i = 0; i< temp2.length; i++){
-            			params.getH().add(Integer.parseInt(temp2[i]));
+            			//params.getH().add(Integer.parseInt(temp2[i]));
+            			params.addH(Integer.parseInt(temp2[i]));
            		}
             		
             		
