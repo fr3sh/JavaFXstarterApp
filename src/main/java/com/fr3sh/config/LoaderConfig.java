@@ -23,6 +23,10 @@ public class LoaderConfig {
 		return allParam;
 	}
 
+	public void addToAllParams(JiraParam a) {
+		allParam.add(a);
+		
+	}
 
 	public static String nazwa_conf = "src/main/resources/config/conf.txt";
 	public static String param = "src/main/resources/config/param.txt";
@@ -142,7 +146,44 @@ public void save_conf (String nazwa) throws IOException {
       } // the file will be automatically closed
 }
 
-  	
+public void save_param (String nazwa) throws IOException {
+	
+	
+	  try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(nazwa))) {
+		  
+		//  confFile.getParams()
+		  
+		  for (int i = 0; i < allParam.size(); i++) {
+			  writer.write("param: "+ allParam.get(i).getNazwa() +"\n");
+			  writer.write(allParam.get(i).getNazwa() + ".txt: "+ allParam.get(i).getLink() +"\n");
+			  writer.write(allParam.get(i).getNazwa() + ".options: ");
+			  for (int j = 0; j < allParam.get(i).getOptions().size(); j++) {
+				System.out.println(allParam.get(i).getOptions().get(j).toString() +"\n");
+				//String a = allParam.get(i).getOptions().get(j).toString();
+				//Object f = allParam.get(i).getOptions();
+				  writer.write(allParam.get(i).getOptions().get(j).toString() +";");
+			  }
+			  writer.write("\n"); 
+			  writer.write(allParam.get(i).getNazwa() + ".importatnt: "+ allParam.get(i).getImportant() +"\n");
+			  
+			  writer.write(allParam.get(i).getNazwa() + ".h: ");
+	/*		  for (int k = 0; k < allParam.get(i).getH().size(); k++) {
+				  writer.write(allParam.get(i).getH().get(k).intValue() );
+				  
+			  }*/
+			  writer.write(allParam.get(i).getH().get(0).intValue() +"-" );
+			  writer.write(allParam.get(i).getH().get(1).intValue() +"" );
+			  writer.write("\n"); 
+			  
+		}
+       
+ 
+  
+        
+    } // the file will be automatically closed
+}
+
+
 public void  read_param (String nazwa){
         
         File a = new File(nazwa);

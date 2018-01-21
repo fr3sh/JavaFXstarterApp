@@ -155,7 +155,7 @@ public ArrayList<Integer> getH() {
 	ArrayList<Integer> opt = new ArrayList<Integer>();
 	for (int i = 0; i < this.h.size(); i++) {
 		
-		opt.add(this.h.get(i).get());
+		opt.add(this.h.get(i).getValue());
 	}
 		
 	return opt;
@@ -179,7 +179,9 @@ public ArrayList<String> getOptions() {
 	
 	ArrayList<String> opt = new ArrayList<String>();
 	for (int i = 0; i < this.options.size(); i++) {
-		opt.add(this.options.get(i).toString());
+		String g = this.options.get(i).getValue();
+		opt.add(this.options.get(i).getValue());
+		//opt.add(this.options.get(i).toString());
 	}
 	//this.options.
 	

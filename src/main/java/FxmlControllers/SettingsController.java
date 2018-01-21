@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.fr3sh.JiraParam;
 import com.fr3sh.config.LoaderConfig;
 
 //import FxmlControllers.SettingsScreanParametersController.MyEventHandler;
@@ -103,14 +104,47 @@ public class SettingsController implements Initializable {
 	@FXML
 	void AddMoreParam(MouseEvent event) throws IOException {
 
-		fxVboxParam.getChildren().add((FxmlUtils.fxmlLoader("/fxml/SettingsScreanParameters.fxml")));
+/*
+ * Ok jeśi samą dormatke ładujemy bez bindowania 
+ * 
+ * 		fxVboxParam.getChildren().add((FxmlUtils.fxmlLoader("/fxml/SettingsScreanParameters.fxml")));
 		fxTabpane1.requestLayout(); // odswierzenie TablePane konieczne!
-
+*/
+		
+		FXMLLoader loader = new FXMLLoader(FxmlUtils.class.getResource("/fxml/SettingsScreanParameters.fxml"));
+		loader.setResources(ResourceBundle.getBundle("bundles.messages"));
+		Pane a = new Pane();
+		try {
+			a = loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		SettController = (SettingsScreanParametersController) loader.getController();
+		
+		JiraParam k = new JiraParam();
+		confFile.addToAllParams(k);
+		
+		SettController.getFxnazwa().textProperty().bindBidirectional(k.nazwaProperty());
+		
+		fxVboxParam.getChildren().add(a);
+		fxTabpane1.requestLayout(); // odswierzenie TablePane konieczne!
+		
+		
 	}
 
 	@FXML
 	void SaveParam2(MouseEvent event) throws IOException {
 
+		confFile.save_param("src/main/resources/config/param2.txt");
+
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(FxmlUtils.getReasorceBoundle().getString("Plik_save_title"));
+		alert.setHeaderText(null);
+		alert.setContentText(FxmlUtils.getReasorceBoundle().getString("Plik_save"));
+
+		alert.showAndWait();
+		
+		
 	}
 
 	public void initConfFile() {
