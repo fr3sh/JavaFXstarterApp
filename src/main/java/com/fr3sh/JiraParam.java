@@ -29,13 +29,23 @@ public class JiraParam {
 	private SimpleBooleanProperty imp1 = new SimpleBooleanProperty();
 	
 	
-	public SimpleBooleanProperty getImp1() {
-		return imp1;
+	public Boolean getImp1() {
+		return imp1.get();
 	}
 
+	public SimpleBooleanProperty getImp1Property() {
+		return imp1;
+	}
+	
+	public void setImp1(Boolean ss) {
+		this.imp1.set(ss); 
+	}
+	
+	public void Imp1Property(Boolean ss) {
+		this.imp1.set(ss); 
+	}
 
-
-	public void setImp1(SimpleBooleanProperty imp1) {
+/*	public void setImp1(SimpleBooleanProperty imp1) {
 		this.imp1 = imp1;
 		if (imp1.get()) {
 			setImportant2("y");
@@ -45,7 +55,7 @@ public class JiraParam {
 				setImportant2("n");
 		
 		}
-	}
+	}*/
 
 
 
@@ -76,7 +86,7 @@ public String getImportant() {
 	return important.get();
 }
 
-public void setImportant(String important) {
+/*public void setImportant(String important) {
 	this.important.set(important);
 	
 	if (important.equals("y")) {
@@ -84,11 +94,11 @@ public void setImportant(String important) {
 	}else {
 		this.imp1.set(false);
 	}
-}
+}*/
 
-public void setImportant2(String important) {
+/*public void setImportant2(String important) {
 	this.important.set(important);
-}
+}*/
 
 public SimpleStringProperty importantProperty() {
 	return important;

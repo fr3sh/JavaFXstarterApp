@@ -164,13 +164,16 @@ public void save_param (String nazwa) throws IOException {
 				  writer.write(allParam.get(i).getOptions().get(j).toString() +";");
 			  }
 			  writer.write("\n"); 
-			  writer.write(allParam.get(i).getNazwa() + ".importatnt: "+ allParam.get(i).getImportant() +"\n");
+			//  writer.write(allParam.get(i).getNazwa() + ".importatnt: "+ allParam.get(i).getImportant() +"\n");
+			  		if (allParam.get(i).getImp1()) {
+		        	  writer.write(allParam.get(i).getNazwa() + ".importatnt: y \n");  
+		          }else {
+		        	  writer.write(allParam.get(i).getNazwa() + ".importatnt: n \n");  
+		          }
+			  
 			  
 			  writer.write(allParam.get(i).getNazwa() + ".h: ");
-	/*		  for (int k = 0; k < allParam.get(i).getH().size(); k++) {
-				  writer.write(allParam.get(i).getH().get(k).intValue() );
-				  
-			  }*/
+
 			  writer.write(allParam.get(i).getH().get(0).intValue() +"-" );
 			  writer.write(allParam.get(i).getH().get(1).intValue() +"" );
 			  writer.write("\n"); 
@@ -226,7 +229,14 @@ public void  read_param (String nazwa){
             	
             	if ( thisLine.contains(params.getNazwa()+".important")){ 		
             		String [] arr = thisLine.split(":", 2); 
-            		params.setImportant(arr[1].trim());	
+            		 String tt = arr[1].trim();
+            		if (tt.contains("y")){
+                    	params.Imp1Property(true);	
+            		}
+            		else {
+            			params.Imp1Property(false);	
+            		}
+            		
             	}
             	
            	if ( thisLine.contains(params.getNazwa()+".h")){  		

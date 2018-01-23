@@ -2,6 +2,7 @@ package FxmlControllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.fr3sh.JiraParam;
@@ -126,6 +127,22 @@ public class SettingsController implements Initializable {
 		
 		SettController.getFxnazwa().textProperty().bindBidirectional(k.nazwaProperty());
 		
+		SettController.getFxkontenerName().textProperty().bindBidirectional(k.linkProperty());
+		SettController.getFxsub().selectedProperty().bindBidirectional(k.getImp1Property());
+		ArrayList<Integer> c = new ArrayList<>();
+		c.add(0);
+		c.add(0);
+		
+		k.setH(c);
+		SettController.getFxOd().getValueFactory().valueProperty().bindBidirectional(k.hProperty().get(0));
+		SettController.getFxDo().getValueFactory().valueProperty().bindBidirectional(k.hProperty().get(1));
+		
+		ArrayList<String> d = new ArrayList<>();
+		d.add("");
+		k.setOptions(d);
+		SettController.getFxFillOptions().textProperty().bindBidirectional(k.OptionsProperty().get(0));
+		
+		
 		fxVboxParam.getChildren().add(a);
 		fxTabpane1.requestLayout(); // odswierzenie TablePane konieczne!
 		
@@ -197,7 +214,7 @@ public class SettingsController implements Initializable {
 			SettController.getFxnazwa().textProperty().bindBidirectional(confFile.getAllParam().get(j).nazwaProperty());
 			SettController.getFxkontenerName().textProperty()
 					.bindBidirectional(confFile.getAllParam().get(j).linkProperty());
-			SettController.getFxsub().selectedProperty().bindBidirectional(confFile.getAllParam().get(j).getImp1());
+			SettController.getFxsub().selectedProperty().bindBidirectional(confFile.getAllParam().get(j).getImp1Property());
 
 			SettController.getFxOd().getValueFactory().valueProperty()
 					.bindBidirectional(confFile.getAllParam().get(j).hProperty().get(0));

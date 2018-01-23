@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="mainScrean" fx:id="MainPane" minWidth="640.0" prefHeight="480.0" prefWidth="640.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.MainController">
+<AnchorPane id="mainScrean" fx:id="MainPane" minWidth="740.0" prefHeight="860.0" prefWidth="740.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.MainController">
     <children>
       <VBox id="vboxWidth" minWidth="640.0">
          <children>
