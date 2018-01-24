@@ -184,7 +184,7 @@ public class SettingsController implements Initializable {
 
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
-		confFile = new LoaderConfig();
+		confFile =  LoaderConfig.getInstanceUsingDoubleLocking();/////new LoaderConfig(); GET SINGLETON!!!!
 		initConfFile();
 
 		//////// PARAM MODE/////

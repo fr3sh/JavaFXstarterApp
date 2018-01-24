@@ -18,6 +18,10 @@ import com.fr3sh.JiraParam;
 
 public class LoaderConfig {
 
+	private static LoaderConfig instance;
+    
+    private LoaderConfig(){}
+	
 	List<JiraParam> allParam;
 	public List<JiraParam> getAllParam() {
 		return allParam;
@@ -26,6 +30,17 @@ public class LoaderConfig {
 	public void addToAllParams(JiraParam a) {
 		allParam.add(a);
 		
+	}
+	
+	public static LoaderConfig getInstanceUsingDoubleLocking(){
+	    if(instance == null){
+	        synchronized (LoaderConfig.class) {
+	            if(instance == null){
+	                instance = new LoaderConfig();
+	            }
+	        }
+	    }
+	    return instance;
 	}
 
 	public static String nazwa_conf = "src/main/resources/config/conf.txt";

@@ -147,6 +147,9 @@ public class SettingsScreanParametersController implements Initializable {
     
     @FXML
     void addMoreInputs(MouseEvent event) throws IOException {
+    	
+    	confFile =  LoaderConfig.getInstanceUsingDoubleLocking();
+    	//confFile.getAllParam().
     	TextField a = new TextField();
     	HBox hb = new HBox();
     	hb.setId("test");
