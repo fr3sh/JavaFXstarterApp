@@ -251,6 +251,7 @@ public class SettingsController implements Initializable {
 				}
 			}
 
+			SettController.setParamJ(confFile.getAllParam().get(j));
 			// SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getParams().linkProperty());
 			fxVboxParam.getChildren().add(a);
 			fxTabpane1.requestLayout(); // odswierzenie TablePane konieczne!

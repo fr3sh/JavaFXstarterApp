@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.fr3sh.JiraParam;
 import com.fr3sh.config.LoaderConfig;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -37,8 +39,18 @@ public class SettingsScreanParametersController implements Initializable {
     
 		
 	LoaderConfig confFile;
+	JiraParam paramJ;
+	SimpleStringProperty temp1param;
 	
-    @FXML
+    public JiraParam getParamJ() {
+		return paramJ;
+	}
+
+	public void setParamJ(JiraParam paramJ) {
+		this.paramJ = paramJ;
+	}
+
+	@FXML
     private Button fxAddMoreOptions;
 
     @FXML
@@ -137,6 +149,15 @@ public class SettingsScreanParametersController implements Initializable {
         //	Scene scene = source.getScene();
         	//HBox tb = (HBox) scene.lookup("#test");
         	//fxBox1.getChildren().remove(fxBox1.lookup("#test"));
+        	for (int i = 0; i < getParamJ().OptionsProperty().size(); i++) {
+				if (getParamJ().OptionsProperty().get(i) == temp1param ) {
+					//System.out.println("HYBAAAAAAAAAAAAA ZNALAZEM ZOBACZYMY");
+					getParamJ().OptionsProperty().remove(i);
+					temp1param.unbind();
+					temp1param = null;
+				}
+			}
+        	
         	fxBox1.getChildren().remove(((HBox) ((Button)evt.getSource()).getParent()));
         	i--;
         	//((HBox) ((Button)evt.getSource()).getParent()).getChildren();
@@ -176,8 +197,12 @@ public class SettingsScreanParametersController implements Initializable {
     	hb.getChildren().add(x);
     	
     	fxBox1.getChildren().add(hb);
+    	//if (getParamJ() != null) {
+    		temp1param = getParamJ().addOptions2("");
+    		a.textProperty().bindBidirectional(temp1param);
+    //	}
     	
-    	
+    	//SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getAllParam().get(j).OptionsProperty().get(i));
     	//fxmainGridPane.add(a, 1, 1);
     }
     
