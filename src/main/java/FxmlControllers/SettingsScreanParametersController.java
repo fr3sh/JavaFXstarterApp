@@ -2,6 +2,8 @@ package FxmlControllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import com.fr3sh.JiraParam;
@@ -40,7 +42,8 @@ public class SettingsScreanParametersController implements Initializable {
 		
 	LoaderConfig confFile;
 	JiraParam paramJ;
-	SimpleStringProperty temp1param;
+	
+	ArrayList<SimpleStringProperty> addedOptionParam = new  ArrayList<SimpleStringProperty>();;
 	
     public JiraParam getParamJ() {
 		return paramJ;
@@ -150,12 +153,19 @@ public class SettingsScreanParametersController implements Initializable {
         	//HBox tb = (HBox) scene.lookup("#test");
         	//fxBox1.getChildren().remove(fxBox1.lookup("#test"));
         	for (int i = 0; i < getParamJ().OptionsProperty().size(); i++) {
-				if (getParamJ().OptionsProperty().get(i) == temp1param ) {
-					//System.out.println("HYBAAAAAAAAAAAAA ZNALAZEM ZOBACZYMY");
-					getParamJ().OptionsProperty().remove(i);
-					temp1param.unbind();
-					temp1param = null;
-				}
+        		
+        		for (int j = 0; j < addedOptionParam.size(); j++) {
+					if (getParamJ().OptionsProperty().get(i) == addedOptionParam.get(j) ) {
+						
+						SimpleStringProperty ik = getParamJ().OptionsProperty().get(i);
+						SimpleStringProperty jk =addedOptionParam.get(j);
+						//System.out.println("HYBAAAAAAAAAAAAA ZNALAZEM ZOBACZYMY");
+						getParamJ().OptionsProperty().remove(i);
+						addedOptionParam.get(j).unbind();
+						addedOptionParam.remove(j);
+						//temp1param = null;
+					}
+        		}
 			}
         	
         	fxBox1.getChildren().remove(((HBox) ((Button)evt.getSource()).getParent()));
@@ -198,8 +208,9 @@ public class SettingsScreanParametersController implements Initializable {
     	
     	fxBox1.getChildren().add(hb);
     	//if (getParamJ() != null) {
-    		temp1param = getParamJ().addOptions2("");
-    		a.textProperty().bindBidirectional(temp1param);
+    	SimpleStringProperty temp1param = getParamJ().addOptions2("");
+    	addedOptionParam.add(temp1param);
+    	a.textProperty().bindBidirectional(temp1param);
     //	}
     	
     	//SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getAllParam().get(j).OptionsProperty().get(i));
