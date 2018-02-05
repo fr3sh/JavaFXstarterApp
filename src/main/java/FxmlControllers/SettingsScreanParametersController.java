@@ -3,6 +3,7 @@ package FxmlControllers;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -152,6 +153,21 @@ public class SettingsScreanParametersController implements Initializable {
         //	Scene scene = source.getScene();
         	//HBox tb = (HBox) scene.lookup("#test");
         	//fxBox1.getChildren().remove(fxBox1.lookup("#test"));
+        	
+        	for (Iterator<SimpleStringProperty> it = getParamJ().OptionsProperty().iterator(); it.hasNext();) {
+        		
+        		for (Iterator<SimpleStringProperty> it2 = addedOptionParam.iterator(); it2.hasNext();) {
+        			if (it.next().getBean() == it2.next().getBean() ) {
+        			//	https://stackoverflow.com/questions/10738634/delete-data-from-arraylist-with-a-for-loop
+        			//	https://stackoverflow.com/questions/1196586/calling-remove-in-foreach-loop-in-java/1196612
+        			//	System.out.println(it2.next().getBean().);
+        			}
+        			
+        		}
+        		
+        		
+        		
+        	}
         	for (int i = 0; i < getParamJ().OptionsProperty().size(); i++) {
         		
         		for (int j = 0; j < addedOptionParam.size(); j++) {
