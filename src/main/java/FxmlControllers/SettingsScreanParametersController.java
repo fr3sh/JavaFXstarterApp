@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 import com.fr3sh.JiraParam;
 import com.fr3sh.config.LoaderConfig;
+import com.fr3sh.helper.BindedObjects;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
@@ -45,6 +46,8 @@ public class SettingsScreanParametersController implements Initializable {
 	JiraParam paramJ;
 	
 	ArrayList<SimpleStringProperty> addedOptionParam = new  ArrayList<SimpleStringProperty>();;
+	
+	ArrayList<BindedObjects> addedOptionParam2 = new  ArrayList<BindedObjects>();
 	
     public JiraParam getParamJ() {
 		return paramJ;
@@ -154,21 +157,26 @@ public class SettingsScreanParametersController implements Initializable {
         	//HBox tb = (HBox) scene.lookup("#test");
         	//fxBox1.getChildren().remove(fxBox1.lookup("#test"));
         	
-        	for (Iterator<SimpleStringProperty> it = getParamJ().OptionsProperty().iterator(); it.hasNext();) {
+        			
+        			
+        	
+        	
+        	
+    /*    	for (Iterator<SimpleStringProperty> it = getParamJ().OptionsProperty().iterator(); it.hasNext();) {
         		
         		for (Iterator<SimpleStringProperty> it2 = addedOptionParam.iterator(); it2.hasNext();) {
-        			if (it.next().getBean() == it2.next().getBean() ) {
+        			if (it.next() == it2.next() ) {
         			//	https://stackoverflow.com/questions/10738634/delete-data-from-arraylist-with-a-for-loop
         			//	https://stackoverflow.com/questions/1196586/calling-remove-in-foreach-loop-in-java/1196612
-        			//	System.out.println(it2.next().getBean().);
+        				System.out.println(it2.next().get());
         			}
         			
         		}
         		
         		
         		
-        	}
-        	for (int i = 0; i < getParamJ().OptionsProperty().size(); i++) {
+        	}*/
+/*        	for (int i = 0; i < getParamJ().OptionsProperty().size(); i++) {
         		
         		for (int j = 0; j < addedOptionParam.size(); j++) {
 					if (getParamJ().OptionsProperty().get(i) == addedOptionParam.get(j) ) {
@@ -182,8 +190,50 @@ public class SettingsScreanParametersController implements Initializable {
 						//temp1param = null;
 					}
         		}
-			}
+			}*/
         	
+        			
+        			HBox a = (HBox) ((Button)evt.getSource()).getParent();
+        			SimpleStringProperty temp = new SimpleStringProperty();
+        			
+        			for (int i = 0; i < a.getChildren().size(); i++) {
+						if (a.getChildren().get(i) instanceof TextField) {
+							System.out.println("Cos mamy");
+							TextField f =(TextField) a.getChildren().get(i);
+							
+							Iterator<BindedObjects> it2 =addedOptionParam2.iterator();
+	        				while (it2.hasNext()) {
+	        					BindedObjects s2 = it2.next();
+	        					
+	        					if(f == s2.getA()) {
+	        						
+	        						temp= s2.getB();
+	        					}
+						}
+					}}
+						
+						
+						Iterator<SimpleStringProperty> it1 = getParamJ().OptionsProperty().iterator();
+	        			
+	        			while (it1.hasNext()) {
+	        				SimpleStringProperty s1 = it1.next(); // must be called before you can call i.remove()
+	        				if(temp == s1) {
+	        					it1.remove();
+        					}
+	       
+	        			   // Do something
+	        			  // i.remove();
+	        			}
+	        			
+	        			Iterator<SimpleStringProperty> it2 =addedOptionParam.iterator();
+	     				while (it2.hasNext()) {
+        					SimpleStringProperty s2 = it2.next();
+        					if(temp == s2) {
+        						it2.remove();
+        					}
+        					
+        				}
+        			
         	fxBox1.getChildren().remove(((HBox) ((Button)evt.getSource()).getParent()));
         	i--;
         	//((HBox) ((Button)evt.getSource()).getParent()).getChildren();
@@ -223,9 +273,16 @@ public class SettingsScreanParametersController implements Initializable {
     	hb.getChildren().add(x);
     	
     	fxBox1.getChildren().add(hb);
+    	
+   
     	//if (getParamJ() != null) {
     	SimpleStringProperty temp1param = getParamJ().addOptions2("");
+    	
+     	BindedObjects k = new BindedObjects();
+    	k.setA(a);
+    	k.setB(temp1param);
     	addedOptionParam.add(temp1param);
+    	addedOptionParam2.add(k);
     	a.textProperty().bindBidirectional(temp1param);
     //	}
     	
