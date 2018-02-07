@@ -44,12 +44,21 @@ public class SettingsScreanParametersController implements Initializable {
 		
 	LoaderConfig confFile;
 	JiraParam paramJ;
+	Integer i = 1;
 	
 	ArrayList<SimpleStringProperty> addedOptionParam = new  ArrayList<SimpleStringProperty>();;
 	
 	ArrayList<BindedObjects> addedOptionParam2 = new  ArrayList<BindedObjects>();
 	
-    public JiraParam getParamJ() {
+    public ArrayList<BindedObjects> getAddedOptionParam2() {
+		return addedOptionParam2;
+	}
+
+	public void setAddedOptionParam2(ArrayList<BindedObjects> addedOptionParam2) {
+		this.addedOptionParam2 = addedOptionParam2;
+	}
+
+	public JiraParam getParamJ() {
 		return paramJ;
 	}
 
@@ -145,103 +154,57 @@ public class SettingsScreanParametersController implements Initializable {
 	}
 
 	@FXML
-    void removeLine(MouseEvent event) {
+    void removeLine(MouseEvent evt) {
+			
+		HBox a = (HBox) ((Button)evt.getSource()).getParent();
+		SimpleStringProperty temp = new SimpleStringProperty();
+		
+		for (int i = 0; i < a.getChildren().size(); i++) {
+			if (a.getChildren().get(i) instanceof TextField) {
+				
+				TextField f =(TextField) a.getChildren().get(i);
+				
+				Iterator<BindedObjects> it2 =addedOptionParam2.iterator();
+				while (it2.hasNext()) {
+					BindedObjects s2 = it2.next();
+					
+					if(f == s2.getA()) {
+						
+						temp= s2.getB();
+					}
+			}
+		}}
+			
+			
+			Iterator<SimpleStringProperty> it1 = getParamJ().OptionsProperty().iterator();
+			
+			while (it1.hasNext()) {
+				SimpleStringProperty s1 = it1.next(); // must be called before you can call i.remove()
+				if(temp == s1) {
+					it1.remove();
+				}
+
+			   // Do something
+			  // i.remove();
+			}
+			
+			Iterator<SimpleStringProperty> it2 =addedOptionParam.iterator();
+				while (it2.hasNext()) {
+				SimpleStringProperty s2 = it2.next();
+				if(temp == s2) {
+					it2.remove();
+				}
+				
+			}
+		
+					fxBox1.getChildren().remove(((HBox) ((Button)evt.getSource()).getParent()));
+						i--;
+//((HBox) ((Button)evt.getSource()).getParent()).getChildren();
 
     }
-    
-    private class MyEventHandler implements EventHandler<Event>{
-        @Override
-        public void handle(Event evt) {
-          // System.out.println(((Control)evt.getSource()).getId());
-        //	Scene scene = source.getScene();
-        	//HBox tb = (HBox) scene.lookup("#test");
-        	//fxBox1.getChildren().remove(fxBox1.lookup("#test"));
-        	
-        			
-        			
-        	
-        	
-        	
-    /*    	for (Iterator<SimpleStringProperty> it = getParamJ().OptionsProperty().iterator(); it.hasNext();) {
-        		
-        		for (Iterator<SimpleStringProperty> it2 = addedOptionParam.iterator(); it2.hasNext();) {
-        			if (it.next() == it2.next() ) {
-        			//	https://stackoverflow.com/questions/10738634/delete-data-from-arraylist-with-a-for-loop
-        			//	https://stackoverflow.com/questions/1196586/calling-remove-in-foreach-loop-in-java/1196612
-        				System.out.println(it2.next().get());
-        			}
-        			
-        		}
-        		
-        		
-        		
-        	}*/
-/*        	for (int i = 0; i < getParamJ().OptionsProperty().size(); i++) {
-        		
-        		for (int j = 0; j < addedOptionParam.size(); j++) {
-					if (getParamJ().OptionsProperty().get(i) == addedOptionParam.get(j) ) {
-						
-						SimpleStringProperty ik = getParamJ().OptionsProperty().get(i);
-						SimpleStringProperty jk =addedOptionParam.get(j);
-						//System.out.println("HYBAAAAAAAAAAAAA ZNALAZEM ZOBACZYMY");
-						getParamJ().OptionsProperty().remove(i);
-						addedOptionParam.get(j).unbind();
-						addedOptionParam.remove(j);
-						//temp1param = null;
-					}
-        		}
-			}*/
-        	
-        			
-        			HBox a = (HBox) ((Button)evt.getSource()).getParent();
-        			SimpleStringProperty temp = new SimpleStringProperty();
-        			
-        			for (int i = 0; i < a.getChildren().size(); i++) {
-						if (a.getChildren().get(i) instanceof TextField) {
-							System.out.println("Cos mamy");
-							TextField f =(TextField) a.getChildren().get(i);
-							
-							Iterator<BindedObjects> it2 =addedOptionParam2.iterator();
-	        				while (it2.hasNext()) {
-	        					BindedObjects s2 = it2.next();
-	        					
-	        					if(f == s2.getA()) {
-	        						
-	        						temp= s2.getB();
-	        					}
-						}
-					}}
-						
-						
-						Iterator<SimpleStringProperty> it1 = getParamJ().OptionsProperty().iterator();
-	        			
-	        			while (it1.hasNext()) {
-	        				SimpleStringProperty s1 = it1.next(); // must be called before you can call i.remove()
-	        				if(temp == s1) {
-	        					it1.remove();
-        					}
-	       
-	        			   // Do something
-	        			  // i.remove();
-	        			}
-	        			
-	        			Iterator<SimpleStringProperty> it2 =addedOptionParam.iterator();
-	     				while (it2.hasNext()) {
-        					SimpleStringProperty s2 = it2.next();
-        					if(temp == s2) {
-        						it2.remove();
-        					}
-        					
-        				}
-        			
-        	fxBox1.getChildren().remove(((HBox) ((Button)evt.getSource()).getParent()));
-        	i--;
-        	//((HBox) ((Button)evt.getSource()).getParent()).getChildren();
-        }
-    }
-    
-    Integer i = 1;
-    
+	
+	
+	  
     @FXML
     void addMoreInputs(MouseEvent event) throws IOException {
     	
@@ -257,8 +220,10 @@ public class SettingsScreanParametersController implements Initializable {
     	Label n = new Label(i.toString()+ ".");
     	n.setTextFill(Color.web("orange", 0.5));
     	Button x = new Button("X");
-    	
-    	x.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+    	//.setOnAction();
+    	//x.setOnAction(this::removeLine);
+    	x.setOnMouseClicked(this::removeLine);
+    //	x.addEventHandler(MouseEvent.MOUSE_CLICKED, removeLine());
     	
 /*    	x.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -289,12 +254,12 @@ public class SettingsScreanParametersController implements Initializable {
     	//SettController.getFxFillOptions().textProperty().bindBidirectional(confFile.getAllParam().get(j).OptionsProperty().get(i));
     	//fxmainGridPane.add(a, 1, 1);
     }
-    
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
 
-    }    
-    
-    
-    
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		// TODO Auto-generated method stub
+		
+	}
 }
+    
+    

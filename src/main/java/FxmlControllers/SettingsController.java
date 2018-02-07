@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.fr3sh.JiraParam;
 import com.fr3sh.config.LoaderConfig;
+import com.fr3sh.helper.BindedObjects;
 
 //import FxmlControllers.SettingsScreanParametersController.MyEventHandler;
 import FxmlInscanceContolers.CustomSettings;
@@ -226,7 +227,10 @@ public class SettingsController implements Initializable {
 				if (i == 0) {
 					SettController.getFxFillOptions().textProperty()
 							.bindBidirectional(confFile.getAllParam().get(j).OptionsProperty().get(i));
-
+					BindedObjects k = new BindedObjects();
+					k.setA(SettController.getFxFillOptions());
+			    	k.setB(confFile.getAllParam().get(j).OptionsProperty().get(i));
+					SettController.getAddedOptionParam2().add(k);
 				} else {
 
 					TextField temp2 = new TextField();
@@ -237,14 +241,22 @@ public class SettingsController implements Initializable {
 					Label n = new Label(numer.toString() + ".");
 					n.setTextFill(Color.web("orange", 0.5));
 					Button x = new Button("X");
-
-					x.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+						
+					x.setOnMousePressed(SettController::removeLine);
+					
+					//x.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
+					//x.addEventHandler(MouseEvent.MOUSE_CLICKED, new MyEventHandler());
 
 					hb.getChildren().add(n);
 					hb.getChildren().add(temp2);
 					hb.getChildren().add(x);
 
 					temp2.textProperty().bindBidirectional(confFile.getAllParam().get(j).OptionsProperty().get(i));
+					
+					BindedObjects k = new BindedObjects();
+					k.setA(temp2);
+			    	k.setB(confFile.getAllParam().get(j).OptionsProperty().get(i));
+					SettController.getAddedOptionParam2().add(k);
 
 					SettController.getFxBox1().getChildren().add(hb);
 
