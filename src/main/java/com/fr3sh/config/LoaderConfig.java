@@ -50,6 +50,17 @@ public class LoaderConfig {
 	private JiraParam params;
 	 
 	public JiraConf getConf() {
+		
+		 if(conf == null){
+		        synchronized (JiraConf.class) {
+		            if(conf == null){
+		            	this.read_conf(nazwa_conf);
+		            }
+		        }
+		    }
+		
+			 
+		 
 		return conf;
 	}
 
@@ -58,6 +69,10 @@ public class LoaderConfig {
 	}
 
 	public JiraParam getParams() {
+		
+		 if(params == null){
+			 this.read_param(param);
+		 }
 		return params;
 	}
 

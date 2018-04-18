@@ -64,23 +64,49 @@
 </dependency>
 
 
+<!-- DZIAŁA  z GECO 18 i jako set profile
+        <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-firefox-driver</artifactId>
+        <version>3.4.0</version>
+    </dependency>  
+
+
+        <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>htmlunit-driver</artifactId>
+        <version>2.29.0</version>
+    </dependency>
+     
    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-server</artifactId>
+        <version>3.4.0</version>
+    </dependency> 
+      -->
+    
+       <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-firefox-driver</artifactId>
         <version>3.10.0</version>
     </dependency>  
 
-    <dependency>
+
+        <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>htmlunit-driver</artifactId>
         <version>2.29.0</version>
-    </dependency>  
+    </dependency>
      
    <dependency>
         <groupId>org.seleniumhq.selenium</groupId>
         <artifactId>selenium-server</artifactId>
         <version>3.10.0</version>
-    </dependency> 
+    </dependency>
+
+    
+    
+ 
             
        <dependency>
   <groupId>org.apache.commons</groupId>
@@ -89,11 +115,11 @@
 </dependency>     
             
             
-<dependency>
+<!-- <dependency>
     <groupId>com.opera</groupId>
     <artifactId>operadriver</artifactId>
     <version>1.5</version>
-</dependency>
+</dependency> -->
         
         
 	</dependencies>

@@ -165,7 +165,8 @@ public class SettingsController implements Initializable {
 	}
 
 	public void initConfFile() {
-		confFile.read_conf(confFile.nazwa_conf);
+		//confFile.read_conf(confFile.nazwa_conf);
+		confFile.getConf();
 		// System.out.println(confFile.getConf().getLogin());
 		fxlogin.textProperty().bindBidirectional(confFile.getConf().loginProperty());
 
@@ -188,7 +189,8 @@ public class SettingsController implements Initializable {
 		initConfFile();
 
 		//////// PARAM MODE/////
-		confFile.read_param(confFile.param);
+		//confFile.read_param(confFile.param);
+		confFile.getParams();
 
 		if(confFile.getAllParam().size()>0) {
 			fxVboxStarter.getChildren().clear();

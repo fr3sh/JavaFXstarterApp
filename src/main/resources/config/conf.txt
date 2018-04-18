@@ -1,4 +1,4 @@
 login: mateusz.predki
-pass: Skarbek008
+pass: ********* //haslo uzupełnic
 dni:5;4;3;2;1
-submit:y
+submit:n
