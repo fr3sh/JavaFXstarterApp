@@ -219,4 +219,13 @@ public void addOptions(String temp1) {
 	//this.options.set(index, element)
 }
 
+public SimpleStringProperty addOptions2(String temp1) {
+	//this.options = arrayList;
+	SimpleStringProperty c = new SimpleStringProperty(temp1);
+	this.options.add(c);
+	return	c;
+
+	//this.options.set(index, element)
+}
+
 }
