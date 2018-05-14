@@ -18,6 +18,45 @@
 
 }
 
+#btnGreen {
+    -fx-background-color:
+        linear-gradient(#f0ff35, #a9ff00),
+        radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+}
+
+#btnGreen:hover{
+	-fx-background-color:
+        linear-gradient(#f0ff35, #a9f000),
+        radial-gradient(center 50% -40%, radius 200%, #bfee06 45%, #bfee06 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+
+}
+
+
+#buttonInfo { 
+    -fx-background-image: url('../assets/info.png');
+     -fx-background-position: center center;
+     -fx-background-size: 16px;
+     -fx-min-height: 16px;
+		-fx-min-width: 16px;
+		 -fx-background-repeat: NOREPEAT;  
+		  -fx-font-family: "Helvetica";
+    -fx-font-size: 5px;
+    
+}
+#buttonInfoTooltip { 
+ 
+		  -fx-font-family: "Helvetica";
+    -fx-font-size: 15px;
+    
+}
 
 #btnHole {
 

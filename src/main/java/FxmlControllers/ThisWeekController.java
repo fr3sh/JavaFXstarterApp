@@ -2,6 +2,7 @@ package FxmlControllers;
 
 import java.io.File;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -38,6 +39,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import utils.FxmlUtils;
 import javafx.scene.control.Button;
 
 /**
@@ -127,6 +129,8 @@ public class ThisWeekController implements Initializable {
 
 		List<WebElement> t = driver.findElements(By.className("dashboard-item-title"));
 
+		
+		// pobranie id Tabeli Time Sheet i uciecie ostatnich znaków gadget-43689
 		for (int i = 0; i < t.size(); i++) {
 			String temp1 = t.get(i).getText();
 			if (temp1.contains("Time Sheet")) {
@@ -139,6 +143,7 @@ public class ThisWeekController implements Initializable {
 
 		}
 
+		// pobranie id Przydzielone do mnie i uciecie ostatnich znaków gadget-43689
 		for (int i = 0; i < t.size(); i++) {
 			String temp1 = t.get(i).getText();
 			if (temp1.contains("Przydzielone do mnie") || temp1.contains("Assigned to Me")) {
@@ -154,10 +159,18 @@ public class ThisWeekController implements Initializable {
 		WebElement a = driver.findElement(By.id(Gadzet1));
 		driver.switchTo().frame(a);
 
+		//pobranie poczatka tygodnia z tabeli Timeshit
 		t = driver.findElements(By.className("colHeaderLink"));
-
-		String temp3 = t.get(1).getText();
-
+		String temp3 = t.get(1).getText();   // text pobrany Pn	7/maj
+		//System.out.println("TO JEST TEMP 3 :" + temp3);
+		String[] temps1 = temp3.split("/", 2);
+		String[] temps2 = temps1[0].split("\n");
+		temp3 = temps2[1];  // dzien poczatku biezacego tygodnia z tabeli timeshit  7
+		
+		//pobranie poczatka tygodnia z timeshit po atrybucie title "07/05/2018" zamiast temp3 
+		String temp33 = t.get(1).getAttribute("title");
+		System.out.println("To jest cała data!!!:" + temp33);
+		
 		SimpleDateFormat temp4 = new SimpleDateFormat("MM");
 
 		Calendar now = Calendar.getInstance();
@@ -174,9 +187,7 @@ public class ThisWeekController implements Initializable {
 		System.out.println("week1 :" + terazTydzien);
 		// temp3 = (String) temp3.subSequence(3, 5);
 
-		String[] temps1 = temp3.split("/", 2);
-		String[] temps2 = temps1[0].split("\n");
-		temp3 = temps2[1];
+		
 
 		// System.out.println(temp3+ now.get(Calendar.MONTH)+now.get(Calendar.YEAR));
 		pocztyg = Integer.parseInt(temp3);
@@ -211,7 +222,7 @@ public class ThisWeekController implements Initializable {
 		// WebDriverWait wait = (new WebDriverWait(driver, 15));
 		t = driver.findElements(By.className("issue-link"));
 
-		Random rnd = new Random();
+		
 		///// dla wszystkich element�w w tabeli time shhet
 		for (int j = 0; j < laderConf.getAllParam().size(); j++) {
 
@@ -232,132 +243,18 @@ public class ThisWeekController implements Initializable {
 					int temp6 = 0;
 
 					while (temp6 < 5) {
-
+							//sprawdza czy dany parametr z pliku param ma ustawiona flage important na y wtedy losuje przedział ile godzin ma ustawic z przedziału godzinowego one.h:2-4
 						if (laderConf.getAllParam().get(j).getImp1()) {
-							int n = rnd
-									.nextInt(laderConf.getAllParam().get(j).getH().get(1)
-											- laderConf.getAllParam().get(j).getH().get(0))
-									+ laderConf.getAllParam().get(j).getH().get(0);
-							if (weekH.get(temp6) > n) {
-
-								weekH.set(temp6, weekH.get(temp6) - n);
-							} else {
-								n = weekH.get(temp6);
-								weekH.set(temp6, weekH.get(temp6) - n);
-							}
-
-							if (n != 0) {
-
-								try {
-									Thread.sleep(3000);
-								} catch (InterruptedException ex) {
-									Thread.currentThread().interrupt();
-								}
-
-								driver.findElement(By.id("opsbar-operations_more")).click();
-								driver.findElement(By.id("log-work")).click();
-								driver.findElement(By.id("log-work-time-logged")).clear();
-								///
-
-								driver.findElement(By.id("log-work-time-logged")).sendKeys(Integer.toString(n) + "h");
-
-								////
-								driver.findElement(By.id("log-work-date-logged-date-picker")).clear();
-
-								/////// MIECHA IMPLEMENTACJA
-								String dt = pocztygS + "/" + miech + "/" + rok;
-								SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-								Calendar c = Calendar.getInstance();
-								c.setTime(sdf.parse(dt));
-								c.add(Calendar.DATE, temp6);
-
-								String DataWpisu = sdf.format(c.getTime());
-								System.out.println("AAAAAAAAAA: " + DataWpisu + " ILE H: " + Integer.toString(n));
-
-								driver.findElement(By.id("log-work-date-logged-date-picker"))
-										.sendKeys(DataWpisu + " 08:30");
-
-								driver.findElement(By.cssSelector("div.field-group > #comment")).clear();
-								n = rnd.nextInt(laderConf.getAllParam().get(j).getOptions().size());
-
-								driver.findElement(By.cssSelector("div.field-group > #comment"))
-										.sendKeys(laderConf.getAllParam().get(j).getOptions().get(n));
-								if (laderConf.getConf().getSubmit()) {
-									driver.findElement(By.id("log-work-submit")).click();
-									try {
-										Thread.sleep(12000);
-									} catch (InterruptedException ex) {
-										Thread.currentThread().interrupt();
-									}
-								} else {
-									driver.findElement(By.id("log-work-cancel")).click(); // anuluj
-								}
-							}
+							wypelnij(laderConf, temp33,  j, temp6);
 
 						}
 
 						else {
+							//Szansa na wypełnienie pół na pół losuje liczbe jedną z dwóch i jaśli wylosował 1 to wypełnia dla four.important:n
+							Random rnd = new Random();
 							int rando = rnd.nextInt(2);
 							if (rando == 1) {
-								int n = rnd
-										.nextInt(laderConf.getAllParam().get(j).getH().get(1)
-												- laderConf.getAllParam().get(j).getH().get(0))
-										+ laderConf.getAllParam().get(j).getH().get(0);
-								if (weekH.get(temp6) > n) {
-
-									weekH.set(temp6, weekH.get(temp6) - n);
-								} else {
-
-									n = weekH.get(temp6);
-									weekH.set(temp6, weekH.get(temp6) - n);
-								}
-
-								if (n != 0) {
-									try {
-										Thread.sleep(3000);
-									} catch (InterruptedException ex) {
-										Thread.currentThread().interrupt();
-									}
-									driver.findElement(By.id("opsbar-operations_more")).click();
-									driver.findElement(By.id("log-work")).click();
-									driver.findElement(By.id("log-work-time-logged")).clear();
-
-									driver.findElement(By.id("log-work-time-logged"))
-											.sendKeys(Integer.toString(n) + "h");
-
-									driver.findElement(By.id("log-work-date-logged-date-picker")).clear();
-
-									/////// MIECHA IMPLEMENTACJA
-									String dt = pocztygS + "/" + miech + "/" + rok;
-									SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-									Calendar c = Calendar.getInstance();
-									c.setTime(sdf.parse(dt));
-									c.add(Calendar.DATE, temp6);
-
-									String DataWpisu = sdf.format(c.getTime());
-									System.out.println("AAAAAAAAAA: " + DataWpisu + " ILE H: " + Integer.toString(n));
-
-									driver.findElement(By.id("log-work-date-logged-date-picker"))
-											.sendKeys(DataWpisu + " 08:30");
-
-									driver.findElement(By.cssSelector("div.field-group > #comment")).clear();
-									n = rnd.nextInt(laderConf.getAllParam().get(j).getOptions().size());
-
-									driver.findElement(By.cssSelector("div.field-group > #comment"))
-											.sendKeys(laderConf.getAllParam().get(j).getOptions().get(n));
-
-									if (laderConf.getConf().getSubmit()) {
-										driver.findElement(By.id("log-work-submit")).click();
-										try {
-											Thread.sleep(12000);
-										} catch (InterruptedException ex) {
-											Thread.currentThread().interrupt();
-										}
-									} else {
-										driver.findElement(By.id("log-work-cancel")).click();
-									}
-
-								} // if (n !=0){
+								wypelnij(laderConf, temp33,  j, temp6);
 							}
 
 						}
@@ -375,28 +272,20 @@ public class ThisWeekController implements Initializable {
 					}
 
 					a = driver.findElement(By.id(Gadzet2));
-					// driver.switchTo().frame(a);
+	
 
-					// input = (new WebDriverWait(driver,
-					// 15)).until(ExpectedConditions.presenceOfElementLocated(By.id("issue-link")));
 					t = driver.findElements(By.className("issue-link"));
 
-					// input = (new WebDriverWait(driver,
-					// 15)).until(ExpectedConditions.presenceOfElementLocated(By.id("add-gadget")));
-					// https://jira/secure/MyJiraHome.jspa
-					// Gadzet2 = t.get(i).getAttribute("id");
-					// Gadzet2 = (String) Gadzet2.subSequence(0, Gadzet2.length() -6);
-					// System.out.println("PRZYDZIELONE G::" + Gadzet2);
 
 				}
 			}
 
 		}
 
-		////////// UZUPE�NIENie JAKBY ZOSTA�O/////
+		////////// UZUPE�NIENie JAKBY ZOSTAŁO/////
 		for (int i = 0; i < weekH.size(); i++) {
 			if (weekH.get(i) > 0) {
-
+				Random rnd = new Random();
 				do {
 
 					int n = rnd.nextInt(laderConf.getAllParam().size());
@@ -422,7 +311,7 @@ public class ThisWeekController implements Initializable {
 							} catch (InterruptedException ex) {
 								Thread.currentThread().interrupt();
 							}
-
+							
 							int rr = rnd
 									.nextInt(laderConf.getAllParam().get(n).getH().get(1)
 											- laderConf.getAllParam().get(n).getH().get(0))
@@ -437,49 +326,7 @@ public class ThisWeekController implements Initializable {
 
 							if (n != 0) {
 
-								try {
-									Thread.sleep(2000);
-								} catch (InterruptedException ex) {
-									Thread.currentThread().interrupt();
-								}
-
-								driver.findElement(By.id("opsbar-operations_more")).click();
-								driver.findElement(By.id("log-work")).click();
-								driver.findElement(By.id("log-work-time-logged")).clear();
-
-								driver.findElement(By.id("log-work-time-logged")).sendKeys(Integer.toString(rr) + "h");
-
-								driver.findElement(By.id("log-work-date-logged-date-picker")).clear();
-
-								/////// MIECHA IMPLEMENTACJA
-								String dt = pocztygS + "/" + miech + "/" + rok;
-								SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-								Calendar c = Calendar.getInstance();
-								c.setTime(sdf.parse(dt));
-								c.add(Calendar.DATE, i);
-
-								String DataWpisu = sdf.format(c.getTime());
-								System.out.println("UZUPE�NIAM: " + DataWpisu + " ILE H: " + Integer.toString(rr));
-
-								driver.findElement(By.id("log-work-date-logged-date-picker"))
-										.sendKeys(DataWpisu + " 08:30");
-
-								driver.findElement(By.cssSelector("div.field-group > #comment")).clear();
-								int opt = rnd.nextInt(laderConf.getAllParam().get(n).getOptions().size());
-
-								driver.findElement(By.cssSelector("div.field-group > #comment"))
-										.sendKeys(laderConf.getAllParam().get(n).getOptions().get(opt));
-
-								if (laderConf.getConf().getSubmit()) {
-									driver.findElement(By.id("log-work-submit")).click();
-									try {
-										Thread.sleep(12000);
-									} catch (InterruptedException ex) {
-										Thread.currentThread().interrupt();
-									}
-								} else {
-									driver.findElement(By.id("log-work-cancel")).click();
-								}
+								jiraWypelnij(laderConf, temp33, i, rnd, n, rr);
 
 								driver.get("https://jira/secure/MyJiraHome.jspa");
 								input = (new WebDriverWait(driver, 15))
@@ -506,7 +353,88 @@ public class ThisWeekController implements Initializable {
 			}
 
 		}
+		
+		 System.out.println("Koniec wykonywania!");
+		driver.close();
+		
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(FxmlUtils.getReasorceBoundle().getString("Jira_fill_title"));
+		alert.setHeaderText(null);
+		alert.setContentText(FxmlUtils.getReasorceBoundle().getString("Jira_fill"));
 
+		alert.showAndWait();
+	}
+
+	private void jiraWypelnij(LoaderConfig laderConf, String temp33, int i, Random rnd, int n, int rr)
+			throws ParseException {
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+		}
+
+		driver.findElement(By.id("opsbar-operations_more")).click();
+		driver.findElement(By.id("log-work")).click();
+		driver.findElement(By.id("log-work-time-logged")).clear();
+
+		driver.findElement(By.id("log-work-time-logged")).sendKeys(Integer.toString(rr) + "h");
+
+		driver.findElement(By.id("log-work-date-logged-date-picker")).clear();
+
+		/////// MIECHA IMPLEMENTACJA
+		//String dt = pocztygS + "/" + miech + "/" + rok;
+		String dt = temp33;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Calendar c = Calendar.getInstance();
+		c.setTime(sdf.parse(dt));
+		c.add(Calendar.DATE, i);
+
+		String DataWpisu = sdf.format(c.getTime());
+		System.out.println("UZUPE�NIAM: " + DataWpisu + " ILE H: " + Integer.toString(rr));
+
+		driver.findElement(By.id("log-work-date-logged-date-picker"))
+				.sendKeys(DataWpisu + " 08:30");
+
+		driver.findElement(By.cssSelector("div.field-group > #comment")).clear();
+		
+		int opt = rnd.nextInt(laderConf.getAllParam().get(n).getOptions().size());
+
+		driver.findElement(By.cssSelector("div.field-group > #comment"))
+				.sendKeys(laderConf.getAllParam().get(n).getOptions().get(opt));
+
+		if (laderConf.getConf().getSubmit()) {
+			driver.findElement(By.id("log-work-submit")).click();
+			try {
+				Thread.sleep(12000);
+			} catch (InterruptedException ex) {
+				Thread.currentThread().interrupt();
+			}
+		} else {
+			driver.findElement(By.id("log-work-cancel")).click();
+		}
+	}
+
+	private void wypelnij(LoaderConfig laderConf, String temp33, int j, int temp6) throws ParseException {
+		Random rnd = new Random();
+		int n = rnd
+				.nextInt(laderConf.getAllParam().get(j).getH().get(1)
+						- laderConf.getAllParam().get(j).getH().get(0))
+				+ laderConf.getAllParam().get(j).getH().get(0);
+		
+		// zeby nie przekroczyło wiecej godzin niz w weekH
+		if (weekH.get(temp6) > n) {
+
+			weekH.set(temp6, weekH.get(temp6) - n);
+		} else {
+			n = weekH.get(temp6);
+			weekH.set(temp6, weekH.get(temp6) - n);
+		}
+
+		if (n != 0) {
+	
+			jiraWypelnij(laderConf, temp33, temp6, rnd, n, n);
+			
+		}
 	}
 
 	private void checkHour(ArrayList<Integer> weekH2, ArrayList<Integer> weekHodj2) {
@@ -514,7 +442,7 @@ public class ThisWeekController implements Initializable {
 		for (int i = 0; i < weekH2.size(); i++) {
 			int a = weekH2.get(i) - weekHodj2.get(i);
 			weekH2.set(i, a);
-			System.out.println("Do uzupe�nienia zosta�o: " + a);
+			System.out.println("Do uzupe�nienia zostało: " + a);
 
 		}
 

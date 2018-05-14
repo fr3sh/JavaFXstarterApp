@@ -7,9 +7,9 @@
 
 <AnchorPane prefHeight="78.0" prefWidth="96.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.ThisWeekController">
    <children>
-      <VBox prefHeight="20.0" prefWidth="10.0">
+      <VBox prefHeight="100.0" prefWidth="150.0">
          <children>
-            <Button fx:id="fxThisWeek" mnemonicParsing="false" onMouseClicked="#goThisWeek" prefHeight="44.0" prefWidth="45.0" text="Button" />
+            <Button id="btnGreen" fx:id="fxThisWeek" mnemonicParsing="false" onMouseClicked="#goThisWeek" prefHeight="25.0" prefWidth="120.0" text="URUCHOM" />
          </children>
          <padding>
             <Insets top="10.0" />
