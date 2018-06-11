@@ -46,7 +46,7 @@
      -fx-background-size: 16px;
      -fx-min-height: 16px;
 		-fx-min-width: 16px;
-		 -fx-background-repeat: NOREPEAT;  
+		
 		  -fx-font-family: "Helvetica";
     -fx-font-size: 5px;
     
@@ -206,4 +206,5 @@
     -fx-padding: 0.416667em 0.166667em 0.0em 0.0em; /* overridden as 5 2 0 0 */
 }
 
-
+.glyph-icon{ -fx-text-fill: -icons-color; -fx-fill: white; -glyph-size: 30px; }
+.glyph-icon:hover{ -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 0);-fx-fill: white; }

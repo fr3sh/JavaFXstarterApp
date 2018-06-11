@@ -4,19 +4,45 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.NaviLeftSideController">
    <children>
       <VBox prefHeight="200.0" prefWidth="160.0" spacing="11.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button id="btnTOP" mnemonicParsing="false" text="MENU" />
-            <Button id="btnHole" fx:id="thisWeek" mnemonicParsing="false" onAction="#goThisWeek" text="Bieżący Tydzień" />
-            <Button id="btnHole" fx:id="RangeWeek" mnemonicParsing="false" onAction="#goRangeOfDates" text="Zakres Dat" />
-            <Button id="btnHole" fx:id="Settings" mnemonicParsing="false" onAction="#goSettings" text="Ustawienia" />
-            <Button id="btnHole" fx:id="info" mnemonicParsing="false" onAction="#goInfo" text="O Programie">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin></Button>
+            <Button id="btnTOP" alignment="CENTER_LEFT" mnemonicParsing="false" text="MENU" >
+            <graphic>
+            <FontAwesomeIconView glyphName='TH_LIST' size='20' ></FontAwesomeIconView>
+            </graphic>
+            </Button>
+            <Button id="btnHole" alignment="CENTER_LEFT" fx:id="thisWeek" mnemonicParsing="false" onAction="#goThisWeek" text="Bieżący Tydzień" >
+                 <graphic>
+            <FontAwesomeIconView glyphName='CALENDAR_ALT' size='20' ></FontAwesomeIconView>
+            </graphic>
+            </Button>
+            
+           
+            <Button id="btnHole" fx:id="RangeWeek" mnemonicParsing="false" onAction="#goRangeOfDates" alignment="CENTER_LEFT" textAlignment="CENTER" text="Zakres Dat" >
+                 <graphic >
+            <FontAwesomeIconView textAlignment="LEFT" glyphName='CALENDAR' size='20' ></FontAwesomeIconView>
+            </graphic>
+        
+            
+            </Button>
+            <Button id="btnHole" alignment="CENTER_LEFT" fx:id="Settings" mnemonicParsing="false" onAction="#goSettings" text="Ustawienia" >
+                <graphic>
+            <FontAwesomeIconView glyphName='COGS' size='20' ></FontAwesomeIconView>
+            </graphic>
+            
+            </Button>
+            <Button id="btnHole" alignment="CENTER_LEFT" fx:id="info" mnemonicParsing="false" onAction="#goInfo" text="O Programie">
+               
+                    
+                <graphic>
+            <FontAwesomeIconView glyphName='INFO_CIRCLE' size='20' ></FontAwesomeIconView>
+            </graphic>
+               
+               </Button>
          </children>
          <padding>
             <Insets left="12.0" top="10.0" />

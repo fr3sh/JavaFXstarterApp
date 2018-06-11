@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="78.0" prefWidth="96.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FxmlControllers.RangeOfDatesController">
+   <children>
+      <VBox>
+         <children>
+            <VBox fx:id="VboxRangeOfDates" prefHeight="100.0" prefWidth="300.0">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+            <VBox spacing="15.0">
+               <children>
+                   <Button id="btnGreen" fx:id="fxRangeOfDays" mnemonicParsing="false" onMouseClicked="#goThisRange" prefHeight="25.0" prefWidth="120.0" text="URUCHOM" />
+                  <Label text="Log z przebiegu działania:" textFill="WHITE" />
+                  <TextArea fx:id="fxLogger" prefHeight="200.0" prefWidth="200.0" />
+               </children>
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+            </VBox>
+         </children>
+      </VBox>
+   </children>
+   <padding>
+      <Insets top="10.0" />
+   </padding>
+</AnchorPane>

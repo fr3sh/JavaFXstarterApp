@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 public class NaviLeftSideController implements Initializable {
     
 		private static final String ThisweekScrean = "/fxml/ThisWeekScrean.fxml";
+		private static final String RangeOfDatesScrean = "/fxml/RangeOfDatesScrean.fxml";
 		private static final String SettingsScrean = "/fxml/SettingsScrean.fxml";
 
 		private MainController maincontroller;
@@ -45,7 +46,7 @@ public class NaviLeftSideController implements Initializable {
 
 	    @FXML
 	    void goRangeOfDates(ActionEvent event) {
-
+	    	maincontroller.ScreanLoadAndSet(RangeOfDatesScrean);
 	    }
 
 	    @FXML

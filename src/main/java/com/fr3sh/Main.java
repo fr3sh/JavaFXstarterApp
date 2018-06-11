@@ -3,10 +3,13 @@ package com.fr3sh;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.FxmlUtils;
@@ -35,7 +38,10 @@ public class Main extends Application {
        
         stage.setScene(scene);
         stage.setTitle(FxmlUtils.getReasorceBoundle().getString("NazwaAplikacji"));
+        stage.getIcons().add(new Image("/assets/zd.png"));
         stage.show();
+       
+        
     }
 
     /**

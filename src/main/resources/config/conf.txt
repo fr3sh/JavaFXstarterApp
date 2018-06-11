@@ -1,4 +1,4 @@
 login: mateusz.predki
-pass: ********* //haslo uzupełnic  
-dni:5;4;3;2;1
+pass: Skarbek05  
+dni:0;0;8;8;8
 submit:n
