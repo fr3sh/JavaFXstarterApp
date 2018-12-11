@@ -1,4 +1,0 @@
-login: mateusz.predki
-pass: Skarbek05  
-dni:0;0;8;8;8
-submit:n
