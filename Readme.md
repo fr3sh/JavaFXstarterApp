@@ -54,4 +54,6 @@ See also the list of [contributors](https://github.com/fr3sh/JavaFxStarter/contr
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
+READY TO BE RELEASED
+
 
