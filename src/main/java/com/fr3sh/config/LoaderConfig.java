@@ -75,10 +75,10 @@ public class LoaderConfig {
 	public static String serialization_param = "src/main/resources/config/conf.txt";*/
 
 //Ładowanie z plików obok jara	
-	public static String nazwa_conf = "./conf.txt";
-	public static String param = "./param.txt";
-	public static String geckoDriver = "./geckodriver18.exe";
-	public static String serialization_param = "./conf.txt";
+	public static String nazwa_conf = "./conf/conf.txt";
+	public static String param = "./conf/param.txt";
+	public static String geckoDriver = "./conf/geckodriver18.exe";
+	public static String serialization_param = "./conf/conf.txt";
 	
 	private JiraConf conf;
 	private JiraParam params;
