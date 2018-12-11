@@ -14,7 +14,6 @@
         <maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
 
-
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<directory>${project.basedir}/target</directory>
