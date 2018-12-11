@@ -16,6 +16,8 @@ public class NaviLeftSideController implements Initializable {
 		private static final String ThisweekScrean = "/fxml/ThisWeekScrean.fxml";
 		private static final String RangeOfDatesScrean = "/fxml/RangeOfDatesScrean.fxml";
 		private static final String SettingsScrean = "/fxml/SettingsScrean.fxml";
+		
+		private static final String Info = "/fxml/InfoScrean.fxml";
 
 		private MainController maincontroller;
 	
@@ -41,7 +43,7 @@ public class NaviLeftSideController implements Initializable {
 
 	    @FXML
 	    void goInfo(ActionEvent event) {
-
+	    	maincontroller.ScreanLoadAndSet(Info);
 	    }
 
 	    @FXML
@@ -62,6 +64,10 @@ public class NaviLeftSideController implements Initializable {
 	    void goThisWeek(ActionEvent event) {
 	    	maincontroller.ScreanLoadAndSet(ThisweekScrean);
 	    }
+	    
+	    
+	    
+	    
     
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

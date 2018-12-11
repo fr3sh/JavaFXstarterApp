@@ -3,12 +3,36 @@ package com.fr3sh.config;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SealedObject;
+import javax.crypto.spec.SecretKeySpec;
+
 import utils.FxmlUtils;
 
 import com.fr3sh.JiraConf;
@@ -42,9 +66,19 @@ public class LoaderConfig {
 	    }
 	    return instance;
 	}
-
-	public static String nazwa_conf = "src/main/resources/config/conf.txt";
+// Ładowanie z resources
+/*	public static String nazwa_conf = "src/main/resources/config/conf.txt";
 	public static String param = "src/main/resources/config/param.txt";
+	public static String geckoDriver = "src/main/resources/gecoDriver/geckodriver18.exe";
+	
+	//for serialization
+	public static String serialization_param = "src/main/resources/config/conf.txt";*/
+
+//Ładowanie z plików obok jara	
+	public static String nazwa_conf = "./conf.txt";
+	public static String param = "./param.txt";
+	public static String geckoDriver = "./geckodriver18.exe";
+	public static String serialization_param = "./conf.txt";
 	
 	private JiraConf conf;
 	private JiraParam params;
@@ -84,7 +118,9 @@ public class LoaderConfig {
 
 public void  read_conf (String nazwa){
       
-      File a = new File(nazwa);
+	
+	//// Bez synchronizacji odczytywanie prosto z pliku 
+  /*    File a = new File(nazwa);
      
       BufferedReader reader2;
       reader2 = null;
@@ -148,17 +184,60 @@ public void  read_conf (String nazwa){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-}
+}*/
 
 
+      try {
+    	  	FileInputStream fi = new FileInputStream(new File(serialization_param));
+			ObjectInputStream oi = new ObjectInputStream(fi);
+			 
+			
+			//WHIOUT ENCRYPTION with serialization
+		/*	 conf =new JiraConf();
+			 conf = (JiraConf) oi.readObject();
+			 oi.close();*/
+			
+			 
+			 //WITH ENCRYPTION
+			 conf = (JiraConf) decrypt(fi);
+
+			
+			
+			fi.close();
+
+		} catch (FileNotFoundException e) {
+			System.out.println("File" +serialization_param+" not found");
+			conf =new JiraConf();
+		} catch (IOException e) {
+			System.out.println("Error initializing stream SERIALIZATION");
+			conf =new JiraConf();
+			//e.printStackTrace();
+		} 
+			
+	/*	 catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} */catch (InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      
+      
+      
  
 }
 
 
 public void save_conf (String nazwa) throws IOException {
 	
-	
-	  try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(nazwa))) {
+	/// bez serializacji do czystego pliku 
+/*	  try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(nazwa))) {
 		  
 		  
           writer.write("login: "+ conf.getLogin() +"\n");
@@ -174,46 +253,145 @@ public void save_conf (String nazwa) throws IOException {
           
           
       } // the file will be automatically closed
+	  */
+	  
+	  //Serializacja do pliku 
+	  try {
+			FileOutputStream f = new FileOutputStream(new File(nazwa));
+			ObjectOutputStream o = new ObjectOutputStream(f);
+		
+			// WHITOUT ENCRYPTION
+			// Write objects to file
+		//	o.writeObject(conf);
+			
+			///ENCRYPTION
+			encrypt(conf, f);
+
+		//	o.close();
+			f.close();
+
+			
+	  }
+		 catch (FileNotFoundException e) {
+			System.out.println("File" +nazwa + "not found");
+		} catch (IOException e) {
+			System.out.println("Error initializing stream");
+		} catch (InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	  
+	  
 }
+
+private static final byte[] key = "NoNeedToSeeSteal".getBytes();
+private static final String transformation = "AES";
+
+public static void encrypt(Serializable object, OutputStream ostream) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
+    try {
+        // Length is 16 byte
+        SecretKeySpec sks = new SecretKeySpec(key, transformation);
+
+        // Create cipher
+        Cipher cipher = Cipher.getInstance(transformation);
+        cipher.init(Cipher.ENCRYPT_MODE, sks);
+        SealedObject sealedObject = new SealedObject(object, cipher);
+
+        // Wrap the output stream
+        CipherOutputStream cos = new CipherOutputStream(ostream, cipher);
+        ObjectOutputStream outputStream = new ObjectOutputStream(cos);
+        outputStream.writeObject(sealedObject);
+        outputStream.close();
+    } catch (IllegalBlockSizeException e) {
+        e.printStackTrace();
+    }
+}
+
+public static Object decrypt(InputStream istream) throws IOException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException {
+    SecretKeySpec sks = new SecretKeySpec(key, transformation);
+    Cipher cipher = Cipher.getInstance(transformation);
+    cipher.init(Cipher.DECRYPT_MODE, sks);
+
+    CipherInputStream cipherInputStream = new CipherInputStream(istream, cipher);
+    ObjectInputStream inputStream = new ObjectInputStream(cipherInputStream);
+    SealedObject sealedObject;
+    try {
+        sealedObject = (SealedObject) inputStream.readObject();
+        return sealedObject.getObject(cipher);
+    } catch (ClassNotFoundException | IllegalBlockSizeException | BadPaddingException e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+
 
 public void save_param (String nazwa) throws IOException {
 	
-	
-	  try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(nazwa))) {
+	// problem z nowymi liniami i utf 8w nowej newBufferedwritej 
+	 // try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(nazwa),StandardCharsets.UTF_8)) {
+	BufferedWriter writer = null;
+	try {
+		 writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(nazwa), "UTF8")); 
+		
 		  
 		//  confFile.getParams()
 		  
 		  for (int i = 0; i < allParam.size(); i++) {
-			  writer.write("param: "+ allParam.get(i).getNazwa() +"\n");
-			  writer.write(allParam.get(i).getNazwa() + ".txt: "+ allParam.get(i).getLink() +"\n");
-			  writer.write(allParam.get(i).getNazwa() + ".options: ");
+			  writer.write("param:"+ allParam.get(i).getNazwa() );
+			  writer.newLine();
+			  writer.write(allParam.get(i).getNazwa() + ".txt:"+ allParam.get(i).getLink() );
+			  writer.newLine();
+			  writer.write(allParam.get(i).getNazwa() + ".options:");
 			  for (int j = 0; j < allParam.get(i).getOptions().size(); j++) {
 				System.out.println(allParam.get(i).getOptions().get(j).toString() +"\n");
+				
 				//String a = allParam.get(i).getOptions().get(j).toString();
 				//Object f = allParam.get(i).getOptions();
 				  writer.write(allParam.get(i).getOptions().get(j).toString() +";");
 			  }
-			  writer.write("\n"); 
+			 // writer.write("\n"); 
+			  writer.newLine();
 			//  writer.write(allParam.get(i).getNazwa() + ".importatnt: "+ allParam.get(i).getImportant() +"\n");
 			  		if (allParam.get(i).getImp1()) {
-		        	  writer.write(allParam.get(i).getNazwa() + ".importatnt: y \n");  
+		        	  writer.write(allParam.get(i).getNazwa() + ".important:y"); 
+		        	  writer.newLine();
 		          }else {
-		        	  writer.write(allParam.get(i).getNazwa() + ".importatnt: n \n");  
+		        	  writer.write(allParam.get(i).getNazwa() + ".important:n"); 
+		        	  writer.newLine();
 		          }
 			  
 			  
-			  writer.write(allParam.get(i).getNazwa() + ".h: ");
+			  writer.write(allParam.get(i).getNazwa() + ".h:");
 
 			  writer.write(allParam.get(i).getH().get(0).intValue() +"-" );
 			  writer.write(allParam.get(i).getH().get(1).intValue() +"" );
-			  writer.write("\n"); 
+			 // writer.write("\n"); 
+			  writer.newLine();
+			  writer.newLine();
 			  
 		}
        
  
-  
+		  // releases all bytes to the underlying stream
+		  writer.flush();
         
-    } // the file will be automatically closed
+    }
+	 catch (IOException e)
+    {
+       System.out.println(e.getMessage());
+    }// the file will be automatically closed tylko przy newbufferedwriter
+	finally {
+    // releases system resources from the streams
+    if(writer!=null)
+    	writer.close();
+ 
+	}
 }
 
 
@@ -226,7 +404,10 @@ public void  read_param (String nazwa){
         String  thisLine = null;
         allParam = new  ArrayList<>();
         try {
-            reader2 = new BufferedReader(new FileReader(a));
+        	//Problemy z UTF i character encoding
+            //reader2 = new BufferedReader(new FileReader(a));
+        	reader2 = new BufferedReader(new InputStreamReader(new FileInputStream(a), "UTF-8"));
+        	
             params = new JiraParam();
             while ((thisLine = reader2.readLine()) != null){
             	

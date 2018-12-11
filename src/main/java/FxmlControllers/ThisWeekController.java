@@ -66,6 +66,10 @@ public class ThisWeekController implements Initializable {
 	@FXML
 	void goThisWeek() throws Exception {
 
+		
+		LoaderConfig laderConf = LoaderConfig.getInstanceUsingDoubleLocking();
+		laderConf.getConf();
+		laderConf.getParams();
 		/*
 		 * Alert alert = new Alert(AlertType.INFORMATION); alert.setTitle("Info");
 		 * alert.setHeaderText(null); alert.setContentText("Działa");
@@ -78,7 +82,10 @@ public class ThisWeekController implements Initializable {
 		// 18 działa na firefox 52.x
 		// 19 już potrzebuje minimum Firefox 55.0 (and greater) ,Selenium 3.5 (and
 		// greater)
-		System.setProperty("webdriver.gecko.driver", "gecoDriver/geckodriver18.exe");
+		//System.setProperty("webdriver.gecko.driver", "gecoDriver/geckodriver18.exe");
+		//System.setProperty("webdriver.gecko.driver","D:\\geckodriver18.exe");
+		System.setProperty("webdriver.gecko.driver", laderConf.geckoDriver);
+		
 		profile = new FirefoxProfile();
 
 		profile.setPreference("network.proxy.type", 0);
@@ -103,9 +110,7 @@ public class ThisWeekController implements Initializable {
 
 		driver.get("https://jira/secure/Dashboard.jspa");
 
-		LoaderConfig laderConf = LoaderConfig.getInstanceUsingDoubleLocking();
-		laderConf.getConf();
-		laderConf.getParams();
+	
 
 		weekH = new ArrayList<>();
 		weekH.add(8);

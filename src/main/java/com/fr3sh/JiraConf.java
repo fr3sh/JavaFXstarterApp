@@ -1,5 +1,10 @@
 package com.fr3sh;
 
+import java.io.IOException;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.xml.ws.Service;
 
@@ -16,29 +21,82 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class JiraConf {
+public class JiraConf implements Serializable{
 
-	private SimpleStringProperty login = new SimpleStringProperty();
-	private SimpleStringProperty pass = new SimpleStringProperty();
-	private ObservableList<Integer> weekObs;
-	private ListProperty<Integer> weekProperty;
+	private static final long serialVersionUID = 1L;
 	
-	private ObjectProperty<Integer> pnProp ;
+	transient private SimpleStringProperty login = new SimpleStringProperty();
+	transient private SimpleStringProperty pass = new SimpleStringProperty();
+	transient private ObservableList<Integer> weekObs;
+	transient private ListProperty<Integer> weekProperty;
 	
-	private IntegerProperty pnintegerProperty;
-	private IntegerProperty wtintegerProperty;
-	private IntegerProperty srintegerProperty;
-	private IntegerProperty czwintegerProperty;
-	private IntegerProperty ptintegerProperty;
-	private ObjectProperty<Integer> wtProp ;
-	private ObjectProperty<Integer> srProp ;
-	private ObjectProperty<Integer> czwProp ;
-	private ObjectProperty<Integer> ptProp ;
+	transient private ObjectProperty<Integer> pnProp = new SimpleObjectProperty<>(0);
+	
+	transient private IntegerProperty pnintegerProperty = IntegerProperty.integerProperty(pnProp);
+
+	transient private ObjectProperty<Integer> wtProp = new SimpleObjectProperty<>(0);
+	transient private ObjectProperty<Integer> srProp =new SimpleObjectProperty<>(0);  
+	transient private ObjectProperty<Integer> czwProp =new SimpleObjectProperty<>(0);
+	transient private ObjectProperty<Integer> ptProp =new SimpleObjectProperty<>(0); 
+	
+	transient private IntegerProperty wtintegerProperty = IntegerProperty.integerProperty(wtProp);;
+	transient private IntegerProperty srintegerProperty = IntegerProperty.integerProperty(srProp);;
+	transient private IntegerProperty czwintegerProperty = IntegerProperty.integerProperty(czwProp);
+	transient private IntegerProperty ptintegerProperty =IntegerProperty.integerProperty(ptProp);
+	
+	private String SerializableLogin ="";
+	private String SerializablePass ="";
+	
+	private Integer SerializablePN = 0;
+	private Integer SerializableWT = 0;
+	private Integer SerializableSR = 0;
+	private Integer SerializableCZ = 0;
+	private Integer SerializablePT = 0;
+	private Boolean SerializableSubmit = false;
+	
+	
+	 private void writeObject(ObjectOutputStream out) throws IOException
+	    {
+		 SerializableLogin = this.getLogin();
+		 SerializablePass = this.getPass();
+		
+		 
+		 SerializablePN =this.getPn();
+		 SerializableWT =this.getWt();
+		 SerializableSR =this.getSr();
+		 
+		 SerializableCZ =this.getCzw();
+		 SerializablePT =this.getPt();
+		 SerializableSubmit = this.getSubmit();
+		 
+		 out.defaultWriteObject();
+	     
+	     
+	   }
+	    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException, InvalidObjectException
+	    {
+	     // our "pseudo-constructor"
+	     in.defaultReadObject();
+	     // now we are a "live" object again, so let's run rebuild and start
+	     this.login =  new SimpleStringProperty();
+	     this.pass =  new SimpleStringProperty();
+	   //  setWeekHodj(new ArrayList<Integer>());
+	           this.setLogin(this.SerializableLogin); 
+	           this.setPass(this.SerializablePass);
+	           setPROPforLISTfromSerializable();
+	           
+	           this.submitProp = new SimpleBooleanProperty();      
+               this.setSubmitProp(this.SerializableSubmit);
+     
+	           
+	  }
+	
+	
 	
 	ArrayList<Integer> weekHodj;
 	//Boolean submit = false;
 
-	private SimpleBooleanProperty submitProp = new SimpleBooleanProperty();
+	transient private SimpleBooleanProperty submitProp = new SimpleBooleanProperty();
 		
 		
 	public Boolean getSubmit() {
@@ -187,6 +245,25 @@ public class JiraConf {
 		czwintegerProperty= IntegerProperty.integerProperty(czwProp);
 		
 		ptProp= new SimpleObjectProperty<>(weekHodj.get(4));
+		ptintegerProperty= IntegerProperty.integerProperty(ptProp);
+	}
+	
+	public void setPROPforLISTfromSerializable() {
+		
+	
+		pnProp= new SimpleObjectProperty<>(SerializablePN);
+		pnintegerProperty= IntegerProperty.integerProperty(pnProp);
+		
+		wtProp= new SimpleObjectProperty<>(SerializableWT);
+		wtintegerProperty= IntegerProperty.integerProperty(wtProp);
+		
+		srProp= new SimpleObjectProperty<>(SerializableSR);
+		srintegerProperty= IntegerProperty.integerProperty(srProp);
+		
+		czwProp= new SimpleObjectProperty<>(SerializableCZ);
+		czwintegerProperty= IntegerProperty.integerProperty(czwProp);
+		
+		ptProp= new SimpleObjectProperty<>(SerializablePT);
 		ptintegerProperty= IntegerProperty.integerProperty(ptProp);
 	}
 

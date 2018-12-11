@@ -92,7 +92,10 @@ public class SettingsController implements Initializable {
 	@FXML
 	void save(MouseEvent event) throws IOException {
 		// System.out.println("TEST PRZYCISKU");;
-		confFile.save_conf("src/main/resources/config/conf2.txt");
+		
+		//confFile.save_conf("src/main/resources/config/conf2.txt");
+		confFile.save_conf(LoaderConfig.nazwa_conf);
+
 
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(FxmlUtils.getReasorceBoundle().getString("Plik_save_title"));
@@ -153,8 +156,11 @@ public class SettingsController implements Initializable {
 	@FXML
 	void SaveParam2(MouseEvent event) throws IOException {
 
-		confFile.save_param("src/main/resources/config/param2.txt");
-
+		//confFile.save_param("src/main/resources/config/param2.txt");
+		confFile.save_param(LoaderConfig.param);
+		
+		
+		
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle(FxmlUtils.getReasorceBoundle().getString("Plik_save_title"));
 		alert.setHeaderText(null);
