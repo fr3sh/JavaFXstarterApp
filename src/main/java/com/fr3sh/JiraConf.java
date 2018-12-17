@@ -250,21 +250,26 @@ public class JiraConf implements Serializable{
 	
 	public void setPROPforLISTfromSerializable() {
 		
-	
+		weekHodj = new ArrayList<>();
 		pnProp= new SimpleObjectProperty<>(SerializablePN);
 		pnintegerProperty= IntegerProperty.integerProperty(pnProp);
+		weekHodj.add(SerializablePN);
 		
 		wtProp= new SimpleObjectProperty<>(SerializableWT);
 		wtintegerProperty= IntegerProperty.integerProperty(wtProp);
+		weekHodj.add(SerializableWT);
 		
 		srProp= new SimpleObjectProperty<>(SerializableSR);
 		srintegerProperty= IntegerProperty.integerProperty(srProp);
+		weekHodj.add(SerializableSR);
 		
 		czwProp= new SimpleObjectProperty<>(SerializableCZ);
 		czwintegerProperty= IntegerProperty.integerProperty(czwProp);
+		weekHodj.add(SerializableCZ);
 		
 		ptProp= new SimpleObjectProperty<>(SerializablePT);
 		ptintegerProperty= IntegerProperty.integerProperty(ptProp);
+		weekHodj.add(SerializablePT);
 	}
 
 }

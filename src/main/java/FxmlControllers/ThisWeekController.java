@@ -420,11 +420,19 @@ public class ThisWeekController implements Initializable {
 	}
 
 	private void wypelnij(LoaderConfig laderConf, String temp33, int j, int temp6) throws ParseException {
+	
 		Random rnd = new Random();
-		int n = rnd
+		int n;
+		if ((laderConf.getAllParam().get(j).getH().get(1)- laderConf.getAllParam().get(j).getH().get(0))==0) {
+			n = laderConf.getAllParam().get(j).getH().get(1);
+		}
+		else {
+		 n = rnd
 				.nextInt(laderConf.getAllParam().get(j).getH().get(1)
 						- laderConf.getAllParam().get(j).getH().get(0))
 				+ laderConf.getAllParam().get(j).getH().get(0);
+		}
+		
 		
 		// zeby nie przekroczyło wiecej godzin niz w weekH
 		if (weekH.get(temp6) > n) {
