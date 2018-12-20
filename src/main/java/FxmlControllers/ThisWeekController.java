@@ -287,18 +287,28 @@ public class ThisWeekController implements Initializable {
 
 		}
 
-		////////// UZUPE�NIENie JAKBY ZOSTAŁO/////
+		////////// UZUPE�NIENie JAKBY ZOSTAŁO TYLKO Z TYCH CO MAJA NIE IMPORTANT badz jak wszystkie maja superimportant to coś wybierze /////
 		for (int i = 0; i < weekH.size(); i++) {
 			if (weekH.get(i) > 0) {
 				Random rnd = new Random();
 				do {
 
 					int n = rnd.nextInt(laderConf.getAllParam().size());
+					
+					boolean checkImp = true;
+					//Sprawdzenie czy wszystkie sa important bo wtedy nic nie uzupełni i wpadnie w petle nizej 
+					for (int s=0; s <laderConf.getAllParam().size(); s++) {
+						if (!laderConf.getAllParam().get(s).getImp1()) {
+							checkImp = false;
+						}
+					}
+					
+					if (!checkImp) {
 					while (laderConf.getAllParam().get(n).getImp1()) {
 						n = rnd.nextInt(laderConf.getAllParam().size());
-					}
+					}}
 
-					if (!laderConf.getAllParam().get(n).getImp1()) {
+					if (!laderConf.getAllParam().get(n).getImp1() || checkImp) {
 
 						int lin = -1;
 						for (int g = 0; g < t.size(); g++) {
@@ -317,10 +327,25 @@ public class ThisWeekController implements Initializable {
 								Thread.currentThread().interrupt();
 							}
 							
-							int rr = rnd
+														
+							int rr;
+							if ((laderConf.getAllParam().get(n).getH().get(1)- laderConf.getAllParam().get(n).getH().get(0))==0) {
+								rr = laderConf.getAllParam().get(n).getH().get(1);
+							}
+							else {
+							 rr = rnd
 									.nextInt(laderConf.getAllParam().get(n).getH().get(1)
 											- laderConf.getAllParam().get(n).getH().get(0))
 									+ laderConf.getAllParam().get(n).getH().get(0);
+							}
+							
+							if (rr > laderConf.getAllParam().get(n).getH().get(1)) {
+								rr = laderConf.getAllParam().get(n).getH().get(1);
+							}
+							
+							
+							
+							
 							if (weekH.get(i) > rr) {
 
 								weekH.set(i, weekH.get(i) - rr);
@@ -329,7 +354,7 @@ public class ThisWeekController implements Initializable {
 								weekH.set(i, weekH.get(i) - rr);
 							}
 
-							if (n != 0) {
+							if (rr != 0) {
 
 								jiraWypelnij(laderConf, temp33, i, rnd, n, rr);
 
@@ -370,7 +395,7 @@ public class ThisWeekController implements Initializable {
 		alert.showAndWait();
 	}
 
-	private void jiraWypelnij(LoaderConfig laderConf, String temp33, int i, Random rnd, int n, int rr)
+	private void jiraWypelnij(LoaderConfig laderConf, String temp33, int i, Random rnd, int j, int rr)
 			throws ParseException {
 		try {
 			Thread.sleep(2000);
@@ -402,10 +427,10 @@ public class ThisWeekController implements Initializable {
 
 		driver.findElement(By.cssSelector("div.field-group > #comment")).clear();
 		
-		int opt = rnd.nextInt(laderConf.getAllParam().get(n).getOptions().size());
+		int opt = rnd.nextInt(laderConf.getAllParam().get(j).getOptions().size());
 
 		driver.findElement(By.cssSelector("div.field-group > #comment"))
-				.sendKeys(laderConf.getAllParam().get(n).getOptions().get(opt));
+				.sendKeys(laderConf.getAllParam().get(j).getOptions().get(opt));
 
 		if (laderConf.getConf().getSubmit()) {
 			driver.findElement(By.id("log-work-submit")).click();
@@ -420,7 +445,9 @@ public class ThisWeekController implements Initializable {
 	}
 
 	private void wypelnij(LoaderConfig laderConf, String temp33, int j, int temp6) throws ParseException {
-	
+	//j to numer biezacego all param 
+		//temp33 poczatka tygodnia z timeshit po atrybucie title "07/05/2018"
+		//temp 6 który dzien w tygodniu
 		Random rnd = new Random();
 		int n;
 		if ((laderConf.getAllParam().get(j).getH().get(1)- laderConf.getAllParam().get(j).getH().get(0))==0) {
@@ -433,8 +460,12 @@ public class ThisWeekController implements Initializable {
 				+ laderConf.getAllParam().get(j).getH().get(0);
 		}
 		
+		if (n > laderConf.getAllParam().get(j).getH().get(1)) {
+			n = laderConf.getAllParam().get(j).getH().get(1);
+		}
 		
-		// zeby nie przekroczyło wiecej godzin niz w weekH
+		
+		// zeby nie przekroczyło wiecej godzin niz w weekH czyli olści mozliwych godzin na dany dzien do wypelnieniea
 		if (weekH.get(temp6) > n) {
 
 			weekH.set(temp6, weekH.get(temp6) - n);
@@ -445,7 +476,7 @@ public class ThisWeekController implements Initializable {
 
 		if (n != 0) {
 	
-			jiraWypelnij(laderConf, temp33, temp6, rnd, n, n);
+			jiraWypelnij(laderConf, temp33, temp6, rnd, j, n);
 			
 		}
 	}

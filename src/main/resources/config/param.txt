@@ -2,5 +2,5 @@ param:one
 one.txt:Prace serwisowe, przeglądy na środowiskach PRD
 one.options: Eme,Imaging,SapArchiving;SMS GATEWAY, Insurance,SMS SERVERS;Imaging,EME;
 one.important:y
-one.h:2-2
+one.h:1-1
 
