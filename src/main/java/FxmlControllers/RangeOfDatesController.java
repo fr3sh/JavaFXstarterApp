@@ -291,7 +291,7 @@ public class RangeOfDatesController implements Initializable {
 			// pobranie id Przydzielone do mnie i uciecie ostatnich znaków gadget-43689
 			for (int i = 0; i < t.size(); i++) {
 				String temp1 = t.get(i).getText();
-				if (temp1.contains("Przydzielone do mnie") || temp1.contains("Assigned to Me")) {
+				if (temp1.contains("Przydzielone do mnie") || temp1.contains("Assigned to Me") || temp1.contains("Przypisane do mnie")) {
 
 					Gadzet2 = t.get(i).getAttribute("id");
 					Gadzet2 = (String) Gadzet2.subSequence(0, Gadzet2.length() - 6);
